@@ -14,7 +14,7 @@ Customizable parameters to be included are as follows:
 - **Stroke Width** (initial width for tree trunk)
 - **Stroke Shrink Rate** (rate at which stroke width will decrease per split)
 
-Other potential features include:
+Intended features include:
 
 - Customizable color pattern for branches
 - Options to add variance in some of the parameters (i.e. branching factor with a range of 2-4)
