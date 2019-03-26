@@ -21,6 +21,14 @@ Stretch features include:
 - Ability to generate a tree with random settings
 - Ability to save a generated tree as an image
 
+## Tentative Development Schedule
+
+| DATE  | MILESTONE                                                              |
+| :---: | :--------------------------------------------------------------------- |
+| 3/31  | Program can generate a basic fractal tree with no customizability      |
+| 4/14  | Program is able to generate fractal trees from customizable parameters |
+| 4/23  | Program is in working state with any additional features implemented   |
+
 ## Project Information
 
 - Developed by Jacob Ressler & Anthony Lantz
