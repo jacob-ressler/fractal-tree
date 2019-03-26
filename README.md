@@ -10,9 +10,9 @@ Customizable parameters to be included are as follows:
 - **Tree Depth** (maximum branches for any given path in the tree)
 - **Split Angle** (determines whether a tree will lean right or left)
 - **Branching Angle** (angle between any 2 adjacent branches in a split)
-- **Branch Reduction Rate** (rate at which branch size will decrease per split)
-- **Stroke Width** (initial width for tree trunk)
-- **Stroke Shrink Rate** (rate at which stroke width will decrease per split)
+- **Branch Reduction Rate** (rate at which branch length will decrease per split)
+- **Stroke Weight** (thickness of the branches)
+- **Stroke Shrink Rate** (rate at which stroke weight will decrease per split)
 
 Intended features include:
 
