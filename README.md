@@ -25,7 +25,7 @@ Stretch features include:
 
 | DATE  | MILESTONE                                                              |
 | :---: | :--------------------------------------------------------------------- |
-| 3/31  | Program can generate a basic fractal tree with no customizability      |
+| 3/31  | Program is able to generate a basic fractal tree with no customizability      |
 | 4/14  | Program is able to generate fractal trees from customizable parameters |
 | 4/23  | Program is in working state with any additional features implemented   |
 
