@@ -18,14 +18,14 @@ public class Branch {
 	private int generation;
 	
 	
-	// constructor for all branches except trunk
+	// constructor for all branches except root
 	public Branch(Branch parent, Vector2 end, float angle) {
 		this.parent = parent;
 		this.end = end;
 		this.angle = angle;
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
-		this.generation = parent.generation() + 1;
+		this.generation = parent.getGeneration() + 1;
 		if (generation < Parameters.depth) {
 			children = new Branch[Parameters.branchingFactor];
 			split(end, angle);
@@ -35,7 +35,7 @@ public class Branch {
 
 
 
-	// constructor for trunk
+	// constructor for root
 	public Branch(float angle) {
 		this.parent = null;
 		this.end = new Vector2(0, Parameters.branchLength);
@@ -54,8 +54,7 @@ public class Branch {
 		if (length == 0) {
 			return; // we can't work with a length of 0
 		}
-		//System.out.println("Splitting");
-		// start with ref being directly above start ( | ) and 'length' pixels long
+		
 		Vector2 ref; 
 		
 		// start with most negatively angled branch and work clockwise through for calculations
@@ -97,12 +96,35 @@ public class Branch {
 		return g;
 	}
 	
-	// Convenience method to figure out what generation this branch belongs to
-	public int generation() {
-		return generation;
+	/* 
+	 * ----------------------------
+	 *          GETTERS
+	 * ----------------------------
+	 */
+	
+	public int getGeneration() { return generation; }
+	
+	public Branch[] getChildren() { return this.children; }
+	
+	public Branch getParent() { return this.parent; }
+	
+	public Vector2 getEnd() { return this.end; }
+	
+	public float getAngle() { return this.angle; }
+	
+	public int length() { return this.length; }
+
+	
+	@Override
+	public String toString() {
+		String s = "";
+		s += "gen "+generation+" | "+angle+" deg | ";
+		s += children == null ? "0 children" : children.length + " children";
+		s += " | ends "+end.toString();
+		
+		return s;
 	}
 	
-
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
 		if (Parameters.bsrIsPercent) {
