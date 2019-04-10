@@ -39,4 +39,9 @@ public class Vector2 {
 	public Vector2 clone() {
 		return new Vector2(this.x, this.y);
 	}
+	
+	@Override
+	public String toString() {
+		return "("+x+", "+y+")";
+	}
 }
