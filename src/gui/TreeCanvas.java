@@ -30,6 +30,9 @@ public class TreeCanvas extends JPanel {
 		
 		g2.translate(getWidth()/2 + Parameters.xOffset, 0); // set the origin to the top center (+ offset) of the screen
 		
+		//TODO: All drawing should be moved here from the data classes.
+		// They should be strictly data and not directly access/affect 
+		// the UI in any way
 		tree.draw(g2, getHeight());
 	}
 	
