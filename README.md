@@ -1,5 +1,19 @@
 # Fractal Tree
 
+## Current Status
+
+Animation capabilities have been implemented at a rudimentary level. They will hopefully be improved to create a more fluid growing animation. You can test out the animation "engine" by clicking on the canvas (clicking again restarts the animation).
+
+UI will soon be added to allow a more user-friendly experience for tweaking parameters. 
+Upon full UI implementation there will be 3 tabs in the parameter pane:
+- single-value parameters
+- ranged-value parameters
+- miscellaneous independent parameters (at this point, just coloring)
+
+Each tab will have its own buttons, and toggles included within.
+
+A toolbar will also be implemented for holding UI to save the canvas as an image.
+
 ## Gameplan
 
 Develop a Java Swing application that will generate a fractal tree from a set of customizable parameters.
@@ -25,7 +39,7 @@ Stretch features include:
 
 | DATE  | MILESTONE                                                              |
 | :---: | :--------------------------------------------------------------------- |
-| 3/31  | Program is able to generate a basic fractal tree with no customizability      |
+| 3/31  | Program is able to generate a basic fractal tree                       |
 | 4/14  | Program is able to generate fractal trees from customizable parameters |
 | 4/23  | Program is in working state with any additional features implemented   |
 
