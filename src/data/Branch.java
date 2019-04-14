@@ -1,20 +1,16 @@
 package data;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import utilities.Vector2;
 
 // Data structure for a branch of a FractalTree
 public class Branch {
 
 	private Branch[] children; // all Branches that will come off this branch
-	public Branch parent;
-	public Vector2 end;
-	public float angle;
-	public int length;
-	public float strokeWeight;
+	private Branch parent;
+	private Vector2 end;
+	private float angle;
+	private int length;
+	private float strokeWeight;
 	private int generation;
 	
 	
@@ -32,8 +28,6 @@ public class Branch {
 		}
 	}
 	
-
-
 
 	// constructor for root
 	public Branch(float angle) {
@@ -74,31 +68,31 @@ public class Branch {
 //		System.out.println(log);
 	}
 	
-	public Graphics draw(Graphics2D g, int height) {
-		if (length == 0 || strokeWeight == 0) return g;
-		
-		g.setStroke(new BasicStroke(strokeWeight));
-		
-		if (parent == null) {
-			// this is the trunk
-			g.drawLine(0,  height, end.x, height - end.y);
-		}
-		else {
-			// this is a normal branch
-			g.drawLine(parent.end.x, height - parent.end.y, end.x, height - end.y);
-		}
-		
-		if (children != null) {
-			for (Branch b : children) {
-				b.draw(g, height);
-			}
-		}
-		return g;
-	}
+//	public Graphics draw(Graphics2D g, int height) {
+//		if (length == 0 || strokeWeight == 0) return g;
+//		
+//		g.setStroke(new BasicStroke(strokeWeight));
+//		
+//		if (parent == null) {
+//			// this is the trunk
+//			g.drawLine(0,  height, end.x, height - end.y);
+//		}
+//		else {
+//			// this is a normal branch
+//			g.drawLine(parent.end.x, height - parent.end.y, end.x, height - end.y);
+//		}
+//		
+//		if (children != null) {
+//			for (Branch b : children) {
+//				b.draw(g, height);
+//			}
+//		}
+//		return g;
+//	}
 	
 	/* 
 	 * ----------------------------
-	 *          GETTERS
+	 * -         GETTERS          -
 	 * ----------------------------
 	 */
 	
@@ -109,6 +103,8 @@ public class Branch {
 	public Branch getParent() { return this.parent; }
 	
 	public Vector2 getEnd() { return this.end; }
+	
+	public Vector2 getStart() { return (this.parent == null ? Vector2.zero() : this.parent.getEnd()); }
 	
 	public float getAngle() { return this.angle; }
 	
