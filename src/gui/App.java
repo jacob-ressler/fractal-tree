@@ -1,21 +1,24 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import data.Parameters;
 
 public class App extends JFrame {
-	public static final boolean TESTING = true; // enable/disable certain things while testing
 	
-	private JPanel content; // the content pane
+	private JSplitPane content; // the content pane
 	private TreeCanvas canvas; // the canvas
-	private ParamPanel params; // the parameters
+	private CustomizationPanel params; // the parameters
 	
 	private int bgcolor = 0x333338; // content pane background color
 	private int panelcolor = 0x222226; // default panel background color
@@ -48,29 +51,51 @@ public class App extends JFrame {
 	// set up some initial properties for the frame.
 	private void initFrame() {
 		setTitle("Fractal Tree Generator");
-		if (TESTING)
-			setBounds(800, 400, 450, 300);
-		else
-			setBounds(100, 100, 450, 300);
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(400, 400));
 		
-		content = new JPanel(new BorderLayout(5, 5));
+		content = new JSplitPane();
 		content.setBorder(new EmptyBorder(5, 5, 5, 5));
 		content.setBackground(new Color(bgcolor));
+		
+		// This customizes the divider to match the background and removes its border.
+		content.setUI(new BasicSplitPaneUI() {
+            @Override
+			public BasicSplitPaneDivider createDefaultDivider() {
+            	return new BasicSplitPaneDivider(this) {
+	                @Override
+					public void setBorder(Border b) { /* no border */ }
+	
+	                @Override
+	                public void paint(Graphics g) {
+	            		super.paint(g);
+	                    g.setColor(new Color(bgcolor));
+	                    int w = getWidth(), h = getHeight(), d = getWidth()/2;
+	                    g.fillRect(0, 0, w, h);
+	                    // draw little circles to indicate the divider
+	                    g.setColor(new Color(0x777791));
+	                    g.fillOval(w/2 - d/2, h/2 - d/2, d, d);
+	                    g.fillOval(w/2 - d/2,  h/2 - 3*d - d/2, d, d);
+	                    g.fillOval(w/2 - d/2, h/2 + 3*d - d/2, d, d);
+	                }
+            	};
+            }
+        });
+		
 		setContentPane(content);
 	}
 
 	
 	private void initCanvas() {
 		canvas = new TreeCanvas(500, 500);
-		content.add(canvas, BorderLayout.WEST);
+		content.add(canvas, JSplitPane.LEFT);
 	}
 	
 	
 	private void initParamPanel() {
-		params = new ParamPanel(250, 500);
+		params = new CustomizationPanel(250, 500);
 		params.setBackground(new Color(panelcolor));
-		content.add(params, BorderLayout.EAST);
+		params.setForeground(Color.lightGray);
+		content.add(params, JSplitPane.RIGHT);
 	}
 }
