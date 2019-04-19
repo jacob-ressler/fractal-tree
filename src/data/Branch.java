@@ -1,31 +1,27 @@
 package data;
 
-import java.awt.BasicStroke;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-
 import utilities.Vector2;
 
 // Data structure for a branch of a FractalTree
 public class Branch {
 
 	private Branch[] children; // all Branches that will come off this branch
-	public Branch parent;
-	public Vector2 end;
-	public float angle;
-	public int length;
-	public float strokeWeight;
+	private Branch parent;
+	private Vector2 end;
+	private float angle;
+	private int length;
+	private float strokeWeight;
 	private int generation;
 	
 	
-	// constructor for all branches except trunk
+	// constructor for all branches except root
 	public Branch(Branch parent, Vector2 end, float angle) {
 		this.parent = parent;
 		this.end = end;
 		this.angle = angle;
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
-		this.generation = parent.generation() + 1;
+		this.generation = parent.getGeneration() + 1;
 		if (generation < Parameters.depth) {
 			children = new Branch[Parameters.branchingFactor];
 			split(end, angle);
@@ -33,9 +29,7 @@ public class Branch {
 	}
 	
 
-
-
-	// constructor for trunk
+	// constructor for root
 	public Branch(float angle) {
 		this.parent = null;
 		this.end = new Vector2(0, Parameters.branchLength);
@@ -54,8 +48,7 @@ public class Branch {
 		if (length == 0) {
 			return; // we can't work with a length of 0
 		}
-		//System.out.println("Splitting");
-		// start with ref being directly above start ( | ) and 'length' pixels long
+		
 		Vector2 ref; 
 		
 		// start with most negatively angled branch and work clockwise through for calculations
@@ -75,34 +68,59 @@ public class Branch {
 //		System.out.println(log);
 	}
 	
-	public Graphics draw(Graphics2D g, int height) {
-		if (length == 0 || strokeWeight == 0) return g;
-		
-		g.setStroke(new BasicStroke(strokeWeight));
-		
-		if (parent == null) {
-			// this is the trunk
-			g.drawLine(0,  height, end.x, height - end.y);
-		}
-		else {
-			// this is a normal branch
-			g.drawLine(parent.end.x, height - parent.end.y, end.x, height - end.y);
-		}
-		
-		if (children != null) {
-			for (Branch b : children) {
-				b.draw(g, height);
-			}
-		}
-		return g;
-	}
+//	public Graphics draw(Graphics2D g, int height) {
+//		if (length == 0 || strokeWeight == 0) return g;
+//		
+//		g.setStroke(new BasicStroke(strokeWeight));
+//		
+//		if (parent == null) {
+//			// this is the trunk
+//			g.drawLine(0,  height, end.x, height - end.y);
+//		}
+//		else {
+//			// this is a normal branch
+//			g.drawLine(parent.end.x, height - parent.end.y, end.x, height - end.y);
+//		}
+//		
+//		if (children != null) {
+//			for (Branch b : children) {
+//				b.draw(g, height);
+//			}
+//		}
+//		return g;
+//	}
 	
-	// Convenience method to figure out what generation this branch belongs to
-	public int generation() {
-		return generation;
-	}
+	/* 
+	 * ----------------------------
+	 * -         GETTERS          -
+	 * ----------------------------
+	 */
 	
+	public int getGeneration() { return generation; }
+	
+	public Branch[] getChildren() { return this.children; }
+	
+	public Branch getParent() { return this.parent; }
+	
+	public Vector2 getEnd() { return this.end; }
+	
+	public Vector2 getStart() { return (this.parent == null ? Vector2.zero() : this.parent.getEnd()); }
+	
+	public float getAngle() { return this.angle; }
+	
+	public int length() { return this.length; }
 
+	
+	@Override
+	public String toString() {
+		String s = "";
+		s += "gen "+generation+" | "+angle+" deg | ";
+		s += children == null ? "0 children" : children.length + " children";
+		s += " | ends "+end.toString();
+		
+		return s;
+	}
+	
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
 		if (Parameters.bsrIsPercent) {

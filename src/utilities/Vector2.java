@@ -28,6 +28,10 @@ public class Vector2 {
 		return rot;
 	}
 
+	public static Vector2 zero() {
+		return new Vector2(0, 0);
+	}
+	
 	// return Euclidean distance as an int
 	public static int distance(Vector2 start, Vector2 end) {
 		int xdif = (start.x - end.x) * (start.x - end.x);
@@ -38,5 +42,10 @@ public class Vector2 {
 	@Override
 	public Vector2 clone() {
 		return new Vector2(this.x, this.y);
+	}
+	
+	@Override
+	public String toString() {
+		return "("+x+", "+y+")";
 	}
 }

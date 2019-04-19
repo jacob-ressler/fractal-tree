@@ -25,11 +25,11 @@ public class Parameters {
 	public static void reset() {
 		bsrIsPercent = true;
 		ssrIsPercent = true;
-		branchingFactor = 2;
-		depth = 5;
+		branchingFactor = 13;
+		depth = 6;
 		tilt = 0f;
-		branchingAngle = 85;
-		branchLength = 150;
+		branchingAngle = 10;
+		branchLength = 200;
 		branchShrinkRate = 45;
 		strokeWeight = 5;
 		strokeShrinkRate = 25;
