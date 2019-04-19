@@ -13,10 +13,6 @@ public class FractalTree {
 		this.root = new Branch(Parameters.tilt);
 	}
 
-//	public void draw(Graphics2D g, int height) {
-//		root.draw(g, height);
-//	}
-
 	// get all branches in this tree
 	public Branch[] getAllBranches() {
 		if (branches == null) {
@@ -49,6 +45,22 @@ public class FractalTree {
 		ArrayList<Branch> bs = new ArrayList<Branch>();
 		for (Branch b : branches) {
 			if (b.getGeneration() <= gen) {
+				//Debug.log(b.toString());
+				bs.add(b);
+			}
+		}
+
+		return bs.toArray(new Branch[1]);
+	}
+	
+	
+	public Branch[] getBranchesOfGen(int gen) {
+		if (branches == null)
+			getAllBranches();
+
+		ArrayList<Branch> bs = new ArrayList<Branch>();
+		for (Branch b : branches) {
+			if (b.getGeneration() == gen) {
 				//Debug.log(b.toString());
 				bs.add(b);
 			}
