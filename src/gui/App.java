@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JSplitPane;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
@@ -40,6 +42,7 @@ public class App extends JFrame {
 
 	public App() {
 		Parameters.reset();
+		customizeUI();
 		initFrame();
 		initCanvas();
 		initParamPanel();
@@ -94,8 +97,27 @@ public class App extends JFrame {
 	
 	private void initParamPanel() {
 		params = new CustomizationPanel(250, 500);
-		params.setBackground(new Color(panelcolor));
-		params.setForeground(Color.lightGray);
 		content.add(params, JSplitPane.RIGHT);
+	}
+	
+	private void customizeUI() { 
+		
+		// use the system look and feel, since it almost definitely 
+		// will look better than the default Swing one
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// get rid of dashed focus rectangle
+		UIManager.put("TabbedPane.focus", Color.white); 
+
+		// set the insets (the only insets we want are tabInsets, since they act like padding)
+		UIManager.put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
+		UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 0, 0, 0));
+		UIManager.put("TabbedPane.tabInsets", new Insets(5, 5, 5, 5));
+		UIManager.put("TabbedPane.selectedTabPadInsets", new Insets(0, 0, 0, 0));
+		
 	}
 }
