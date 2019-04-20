@@ -17,7 +17,7 @@ import utilities.Debug;
 public class TreeCanvas extends JPanel {
 
 	private FractalTree tree;
-	//private Graphics2D lastFrame;
+	private Graphics2D lastFrame;
 	private int currgen;
 	private boolean isAnimating = false;
 
@@ -29,6 +29,7 @@ public class TreeCanvas extends JPanel {
 	public TreeCanvas(int width, int height) {
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
+		setDoubleBuffered(true);
 		tree = new FractalTree();
 		currgen = 1;
 		
@@ -36,6 +37,7 @@ public class TreeCanvas extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				//repaint();
 				isAnimating = true;
 				currgen = 1;
 				repaint();
@@ -45,7 +47,8 @@ public class TreeCanvas extends JPanel {
 
 
 	/*	**FIXME**
-	 *  this works, but has 2 weird visual bugs
+	 *  The entire tree has to be redrawn each frame. However, trying to optimize 
+	 *  the algorithm to only draw the new branches produced the following errors:
 	 *  1. Canvas shrinks on left and top after repainting 
 	 *  	- something to do with not calling super() in the elseif
 	 *  	- if we call super() there, we have to redraw the entire tree each frame
@@ -55,59 +58,42 @@ public class TreeCanvas extends JPanel {
 	 */
 	@Override 
 	protected void paintComponent(Graphics g) {
-		Graphics2D lastFrame = (Graphics2D) g;
+		
 		if (isAnimating == false) {
+			//draw the background
 			super.paintComponent(g);
+			
+			// lastFrame will now hold a copy of the canvas graphics context
+			lastFrame = (Graphics2D) g.create();
+			
+			// set the origin to the top center (+ offset) of the screen
+			lastFrame.translate(getWidth() / 2 + Parameters.xOffset, 0);
+			
+			// Get the time for this first frame
 			lastFrameTime = System.currentTimeMillis();
-		}
-		else if (currgen <= Parameters.generations) {
+			
+
+		} else {
 			if (System.currentTimeMillis() - lastFrameTime >= mpf) {
-				drawNextFrame(lastFrame, tree.getBranchesOfGen(currgen));
+				// paint background
+				super.paintComponent(g);
+				
+				// draw the next Frame, based off the last frame
+				drawNextFrame(lastFrame, tree.getBranchesUpToGen(currgen));
+				
+				// this is now the time of the last frame
 				lastFrameTime = System.currentTimeMillis();
 			}
 			
-			repaint();
+			// let's see if we still have more to animate
+			if (currgen <= Parameters.generations) {
+				// we still have more frames to draw
+				repaint();
+			} else {
+				// we have finished drawing
+				isAnimating = false;
+			}
 		}
-		else {
-			isAnimating = false;
-		}
-		
-		/* old animating code, use this instead if canvas GUI bugs aren't resolved */
-		
-//		//draw the background
-//		super.paintComponent(g);
-//		
-//		if (isAnimating == false) {
-//			
-//			// lastFrame will now hold the canvas graphics context
-//			lastFrame = (Graphics2D) g.create();
-//			
-//			// set the origin to the top center (+ offset) of the screen
-//			lastFrame.translate(getWidth() / 2 + Parameters.xOffset, 0);
-//			
-//			// Get the time for this first frame
-//			lastFrameTime = System.currentTimeMillis();
-//			
-//
-//		} else {
-//			if (System.currentTimeMillis() - lastFrameTime >= mpf) {
-//				
-//				// draw the next Frame, based off the last frame
-//				drawNextFrame(lastFrame, tree.getBranchesUpToGen(currgen));
-//				
-//				// this is now the time of the last frame
-//				lastFrameTime = System.currentTimeMillis();
-//			}
-//			
-//			// let's see if we still have more to animate
-//			if (currgen <= Parameters.generations) {
-//				// we still have more frames to draw
-//				repaint();
-//			} else {
-//				// we have finished drawing
-//				isAnimating = false;
-//			}
-//		}
 	}
 
 	
@@ -118,11 +104,10 @@ public class TreeCanvas extends JPanel {
 		Debug.log(String.valueOf(branches.length));
 		g2.setColor(Color.black); // TODO: feed custom colors to this based on Parameters
 		int h = getHeight();
-		int w = getWidth() / 2;
+		int w = Parameters.xOffset;
 		for (Branch b : branches) {
 			// FIXME: for now this just draw each generation entirely per cycle
-			// It should instead draw up to a certain length of each currgen branch per
-			// frame
+			// It should instead draw up to a certain length of each currgen branch per frame
 			g2.drawLine(b.getStart().x + w, h - b.getStart().y, b.getEnd().x + w, h - b.getEnd().y);
 
 		}
