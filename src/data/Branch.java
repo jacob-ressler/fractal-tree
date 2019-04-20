@@ -22,7 +22,7 @@ public class Branch {
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
 		this.generation = parent.getGeneration() + 1;
-		if (generation < Parameters.depth) {
+		if (generation < Parameters.generations) {
 			children = new Branch[Parameters.branchingFactor];
 			split(end, angle);
 		}
@@ -37,7 +37,7 @@ public class Branch {
 		this.length = Parameters.branchLength;
 		this.strokeWeight = Parameters.strokeWeight;
 		this.generation = 1;
-		if (generation < Parameters.depth) {
+		if (generation < Parameters.generations) {
 			children = new Branch[Parameters.branchingFactor];
 			split(end, angle);
 		}
