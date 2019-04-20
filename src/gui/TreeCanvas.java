@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import data.Branch;
 import data.FractalTree;
-import data.Parameters;
+import data.ParamManager;
 import utilities.Debug;
 
 public class TreeCanvas extends JPanel {
@@ -55,8 +55,9 @@ public class TreeCanvas extends JPanel {
 	 *  2. Single tab gets duplicated in upper left corner of canvas
 	 *  	- possibly due to the shrinking in the top and left?
 	 *  	- only occurs if window has not been resized (no idea why)
-	 *  Another note: this appears to either be a Windows or OracleJDK issue.
-	 *  When I run this in Ubuntu with OpenJDK on my laptop, both issues do not occur.
+	 *  Another note: these appear to either be a Windows or graphics card issue,
+	 *  as neither occurred on my Ubuntu laptop with only Intel integrated graphics
+	 *  when using an optimized algorithm.
 	 */
 	@Override 
 	protected void paintComponent(Graphics g) {
@@ -69,7 +70,7 @@ public class TreeCanvas extends JPanel {
 			lastFrame = (Graphics2D) g.create();
 			
 			// set the origin to the top center (+ offset) of the screen
-			lastFrame.translate(getWidth() / 2 + Parameters.xOffset, 0);
+			lastFrame.translate(getWidth() / 2, 0);
 			
 			// Get the time for this first frame
 			lastFrameTime = System.currentTimeMillis();
@@ -88,7 +89,7 @@ public class TreeCanvas extends JPanel {
 			}
 			
 			// let's see if we still have more to animate
-			if (currgen <= Parameters.generations) {
+			if (currgen <= ParamManager.generations) {
 				// we still have more frames to draw
 				repaint();
 			} else {
@@ -106,7 +107,7 @@ public class TreeCanvas extends JPanel {
 		Debug.log(String.valueOf(branches.length));
 		g2.setColor(Color.black); // TODO: feed custom colors to this based on Parameters
 		int h = getHeight();
-		int w = Parameters.xOffset;
+		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
 			// FIXME: for now this just draw each generation entirely per cycle
 			// It should instead draw up to a certain length of each currgen branch per frame
