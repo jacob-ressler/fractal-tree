@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import data.Branch;
 import data.FractalTree;
-import data.Parameters;
+import data.ParamManager;
 import utilities.Debug;
 
 public class TreeCanvas extends JPanel {
@@ -29,6 +29,7 @@ public class TreeCanvas extends JPanel {
 	public TreeCanvas(int width, int height) {
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
+		setDoubleBuffered(true);
 		tree = new FractalTree();
 		currgen = 1;
 		
@@ -36,6 +37,7 @@ public class TreeCanvas extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				//repaint();
 				isAnimating = true;
 				currgen = 1;
 				repaint();
@@ -44,21 +46,31 @@ public class TreeCanvas extends JPanel {
 	}
 
 
-	
-	@Override // TODO: some of this can be cleaned up...
+	/*	**FIXME**
+	 *  The entire tree has to be redrawn each frame. However, trying to optimize 
+	 *  the algorithm to only draw the new branches produced the following errors:
+	 *  1. Canvas shrinks on left and top after repainting 
+	 *  	- something to do with not calling super() in the elseif
+	 *  	- if we call super() there, we have to redraw the entire tree each frame
+	 *  2. Single tab gets duplicated in upper left corner of canvas
+	 *  	- possibly due to the shrinking in the top and left?
+	 *  	- only occurs if window has not been resized (no idea why)
+	 *  Another note: these appear to either be a Windows or graphics card issue,
+	 *  as neither occurred on my Ubuntu laptop with only Intel integrated graphics
+	 *  when using an optimized algorithm.
+	 */
+	@Override 
 	protected void paintComponent(Graphics g) {
+		
 		if (isAnimating == false) {
-			Debug.log("paintComponent :: first iteration");
-			// we only need to do this if we aren't animating yet
-			
 			//draw the background
 			super.paintComponent(g);
 			
-			// lastFrame will now hold the canvas graphics context
+			// lastFrame will now hold a copy of the canvas graphics context
 			lastFrame = (Graphics2D) g.create();
 			
 			// set the origin to the top center (+ offset) of the screen
-			lastFrame.translate(getWidth() / 2 + Parameters.xOffset, 0);
+			lastFrame.translate(getWidth() / 2, 0);
 			
 			// Get the time for this first frame
 			lastFrameTime = System.currentTimeMillis();
@@ -68,8 +80,6 @@ public class TreeCanvas extends JPanel {
 			if (System.currentTimeMillis() - lastFrameTime >= mpf) {
 				// paint background
 				super.paintComponent(g);
-
-				Debug.log("paintComponent :: animating");
 				
 				// draw the next Frame, based off the last frame
 				drawNextFrame(lastFrame, tree.getBranchesUpToGen(currgen));
@@ -79,7 +89,7 @@ public class TreeCanvas extends JPanel {
 			}
 			
 			// let's see if we still have more to animate
-			if (currgen <= Parameters.depth) {
+			if (currgen <= ParamManager.generations) {
 				// we still have more frames to draw
 				repaint();
 			} else {
@@ -89,17 +99,19 @@ public class TreeCanvas extends JPanel {
 		}
 	}
 
+	
+
 
 	// draw the next frame based on the current frame
 	private void drawNextFrame(Graphics2D g2, Branch[] branches) {
 		Debug.log(String.valueOf(branches.length));
 		g2.setColor(Color.black); // TODO: feed custom colors to this based on Parameters
 		int h = getHeight();
+		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
 			// FIXME: for now this just draw each generation entirely per cycle
-			// It should instead draw up to a certain length of each currgen branch per
-			// frame
-			g2.drawLine(b.getStart().x, h - b.getStart().y, b.getEnd().x, h - b.getEnd().y);
+			// It should instead draw up to a certain length of each currgen branch per frame
+			g2.drawLine(b.getStart().x + w, h - b.getStart().y, b.getEnd().x + w, h - b.getEnd().y);
 
 		}
 		currgen++;

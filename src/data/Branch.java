@@ -22,8 +22,8 @@ public class Branch {
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
 		this.generation = parent.getGeneration() + 1;
-		if (generation < Parameters.depth) {
-			children = new Branch[Parameters.branchingFactor];
+		if (generation < ParamManager.generations) {
+			children = new Branch[ParamManager.branchingFactor];
 			split(end, angle);
 		}
 	}
@@ -32,13 +32,13 @@ public class Branch {
 	// constructor for root
 	public Branch(float angle) {
 		this.parent = null;
-		this.end = new Vector2(0, Parameters.branchLength);
+		this.end = new Vector2(0, ParamManager.branchLength);
 		this.angle = angle;
-		this.length = Parameters.branchLength;
-		this.strokeWeight = Parameters.strokeWeight;
+		this.length = ParamManager.branchLength;
+		this.strokeWeight = ParamManager.strokeWeight;
 		this.generation = 1;
-		if (generation < Parameters.depth) {
-			children = new Branch[Parameters.branchingFactor];
+		if (generation < ParamManager.generations) {
+			children = new Branch[ParamManager.branchingFactor];
 			split(end, angle);
 		}
 	}
@@ -52,13 +52,13 @@ public class Branch {
 		Vector2 ref; 
 		
 		// start with most negatively angled branch and work clockwise through for calculations
-		phi = phi - (Parameters.branchingAngle * Parameters.branchingFactor * 0.5f) + (Parameters.branchingAngle * 0.5f);
+		phi = phi - (ParamManager.branchingAngle * ParamManager.branchingFactor * 0.5f) + (ParamManager.branchingAngle * 0.5f);
 		
 		
 		for (int i = 0; i < children.length; i++) {
 			ref = new Vector2(start.x, start.y + calcLength(length));
 			children[i] = new Branch(this, ref.rotate(start, phi), phi);
-			phi += Parameters.branchingAngle;
+			phi += ParamManager.branchingAngle;
 		}
 		
 //		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
@@ -123,26 +123,26 @@ public class Branch {
 	
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
-		if (Parameters.bsrIsPercent) {
+		if (ParamManager.bsrIsPercent) {
 			// treat the shrink rate as a percentage decrease
-			int val = Math.round(len * ((100 - Parameters.branchShrinkRate) * 0.01f));
+			int val = Math.round(len * ((100 - ParamManager.branchShrinkRate) * 0.01f));
 			return Math.max(val, 0);
 		}
 		else {
 			// treat the shrink rate as a value decrease
-			return Math.max(len - Parameters.branchShrinkRate, 0);
+			return Math.max(len - ParamManager.branchShrinkRate, 0);
 		}
 	}
 	
 	// Calculate a stroke weight for this branch based on current Parameters values
 	private float calcStrokeWeight() {
-		if (Parameters.ssrIsPercent) {
+		if (ParamManager.ssrIsPercent) {
 			// treat the shrink rate as a percentage decrease
-			return Math.max(parent.strokeWeight * ((100 - Parameters.strokeShrinkRate) * 0.01f), 0);
+			return Math.max(parent.strokeWeight * ((100 - ParamManager.strokeShrinkRate) * 0.01f), 0);
 		}
 		else {
 			// treat the shrink rate as a value decrease
-			return Math.max(parent.strokeWeight - Parameters.strokeShrinkRate, 0);
+			return Math.max(parent.strokeWeight - ParamManager.strokeShrinkRate, 0);
 		}
 	}
 

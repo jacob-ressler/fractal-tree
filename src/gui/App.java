@@ -1,12 +1,20 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
@@ -14,7 +22,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-import data.Parameters;
+import data.ParamManager;
 
 public class App extends JFrame {
 	
@@ -41,7 +49,8 @@ public class App extends JFrame {
 	}
 
 	public App() {
-		Parameters.reset();
+		ParamManager.reset();
+		initFont();
 		customizeUI();
 		initFrame();
 		initCanvas();
@@ -50,6 +59,17 @@ public class App extends JFrame {
 	}
 
 	
+
+	private void initFont() {
+		try {
+		     GraphicsEnvironment ge = 
+		         GraphicsEnvironment.getLocalGraphicsEnvironment();
+		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Muli-Black.ttf")));
+		} catch (IOException | FontFormatException e) {
+		     //Handle exception
+		}
+		
+	}
 
 	// set up some initial properties for the frame.
 	private void initFrame() {
@@ -90,8 +110,17 @@ public class App extends JFrame {
 
 	
 	private void initCanvas() {
+		// Put a label above the canvas with instructions
+		JPanel p = new JPanel(new BorderLayout(0, 2));
+		p.setBackground(new Color(bgcolor));
+		JLabel l = new JLabel("Click on the Canvas to draw a Fractal Tree using the active tab's values.", JLabel.CENTER);
+		l.setFont(new Font("Muli-Black", Font.PLAIN, 14));
+		l.setOpaque(true);
+		l.setBackground(new Color(0xeeeeee));
+		p.add(l, BorderLayout.NORTH);
 		canvas = new TreeCanvas(500, 500);
-		content.add(canvas, JSplitPane.LEFT);
+		p.add(canvas, BorderLayout.SOUTH);
+		content.add(p, JSplitPane.LEFT);
 	}
 	
 	

@@ -10,7 +10,7 @@ public class FractalTree {
 	private ArrayList<Branch> branches; // all branches of the tree (including root)
 
 	public FractalTree() {
-		this.root = new Branch(Parameters.tilt);
+		this.root = new Branch(ParamManager.tilt);
 	}
 
 	// get all branches in this tree
