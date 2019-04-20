@@ -55,6 +55,8 @@ public class TreeCanvas extends JPanel {
 	 *  2. Single tab gets duplicated in upper left corner of canvas
 	 *  	- possibly due to the shrinking in the top and left?
 	 *  	- only occurs if window has not been resized (no idea why)
+	 *  Another note: this appears to either be a Windows or OracleJDK issue.
+	 *  When I run this in Ubuntu with OpenJDK on my laptop, both issues do not occur.
 	 */
 	@Override 
 	protected void paintComponent(Graphics g) {
