@@ -16,7 +16,7 @@ public class CustomizationPanel extends JTabbedPane {
 	public CustomizationPanel(int w, int h) {
 		
 		setPreferredSize(new Dimension(w, h));
-		setMinimumSize(new Dimension(250, 250));
+		setMinimumSize(new Dimension(290, 250)); // needs to be big enough to see full slider (do not change)
 		
 		//create 3 tabs
 		svt = new SingleValueTab();
