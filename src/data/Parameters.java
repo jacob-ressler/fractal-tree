@@ -12,7 +12,7 @@ public class Parameters {
 	
 	/* NUMERICAL FIELDS */
 	public static int branchingFactor; // number of branches created at every split point
-	public static int depth; // number of branches from start branch to any end branch
+	public static int generations; // number of branches from start branch to any end branch
 	public static float tilt; // whether tree will lean right(+), left(-) or not at all
 	public static float branchingAngle; // angle between adjacent branches at the same split point
 	public static int branchLength; // how long the branches should be drawn
@@ -26,7 +26,7 @@ public class Parameters {
 		bsrIsPercent = true;
 		ssrIsPercent = true;
 		branchingFactor = 13;
-		depth = 6;
+		generations = 6;
 		tilt = 0f;
 		branchingAngle = 10;
 		branchLength = 200;
