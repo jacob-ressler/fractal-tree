@@ -33,6 +33,8 @@ public abstract class Tab extends JScrollPane {
 	
 	// add an item to the list of items and give it the specified label
 	// TODO? Add a third argument is a direct reference to the slider/toggle/selector
+	// 		 Idea: we can just make sure the component we need is always the last to be added to item
+	//			   then we can just get the child at index <number of children> - 1.
 	public JComponent addItem(String label, JComponent item) {
 		JPanel p = new JPanel();
 		JLabel l = new JLabel(label, JLabel.CENTER);
