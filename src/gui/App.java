@@ -119,7 +119,7 @@ public class App extends JFrame {
 		l.setBackground(new Color(0xeeeeee));
 		p.add(l, BorderLayout.NORTH);
 		canvas = new TreeCanvas(500, 500);
-		p.add(canvas, BorderLayout.SOUTH);
+		p.add(canvas, BorderLayout.CENTER);
 		content.add(p, JSplitPane.LEFT);
 	}
 	
