@@ -32,6 +32,7 @@ public abstract class Tab extends JScrollPane {
 	}
 	
 	// add an item to the list of items and give it the specified label
+	// TODO? Add a third argument is a direct reference to the slider/toggle/selector
 	public JComponent addItem(String label, JComponent item) {
 		JPanel p = new JPanel();
 		JLabel l = new JLabel(label, JLabel.CENTER);
@@ -44,6 +45,7 @@ public abstract class Tab extends JScrollPane {
 		l.setAlignmentX(0.5f);
 		p.add(l);
 		p.add(item);
+		// p.setMaximumSize(new Dimension(getWidth(), 200)); // ignored by GridLayout, maybe we should switch to a GridBagLayout?
 		content.add(p);
 		items.add(p);
 		content.revalidate();
