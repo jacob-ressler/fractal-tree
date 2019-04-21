@@ -119,7 +119,7 @@ public class App extends JFrame {
 		l.setBackground(new Color(0xeeeeee));
 		p.add(l, BorderLayout.NORTH);
 		canvas = new TreeCanvas(500, 500);
-		p.add(canvas, BorderLayout.SOUTH);
+		p.add(canvas, BorderLayout.CENTER);
 		content.add(p, JSplitPane.LEFT);
 	}
 	
@@ -139,9 +139,10 @@ public class App extends JFrame {
 			e.printStackTrace();
 		}
 		
-		// get rid of dashed focus rectangle
+		// get rid of dashed focus rectangles
 		UIManager.put("TabbedPane.focus", Color.white); 
-
+		UIManager.put("Slider.focus", Color.white);
+		
 		// set the insets (the only insets we want are tabInsets, since they act like padding)
 		UIManager.put("TabbedPane.contentBorderInsets", new Insets(0, 0, 0, 0));
 		UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 0, 0, 0));
