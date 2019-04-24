@@ -104,7 +104,7 @@ public class Branch {
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
 			// treat the shrink rate as a percentage decrease
-			int val = Math.round(len * ((100 - ParamManager.single[7]) * 0.01f));
+			int val = Math.round(len * ((100 - ParamManager.single[5]) * 0.01f));
 			return Math.max(val, 0);
 	}
 	
