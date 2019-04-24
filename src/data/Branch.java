@@ -13,6 +13,7 @@ public class Branch {
 	private float strokeWeight;
 	private int generation;
 	
+	//single[] rangedMin[] rangedMax[]
 	
 	// constructor for all branches except root
 	public Branch(Branch parent, Vector2 end, float angle) {
@@ -22,8 +23,8 @@ public class Branch {
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
 		this.generation = parent.getGeneration() + 1;
-		if (generation < ParamManager.generations) {
-			children = new Branch[ParamManager.branchingFactor];
+		if (generation < ParamManager.single[1]) {
+			children = new Branch[ParamManager.single[0]];
 			split(end, angle);
 		}
 	}
@@ -34,12 +35,12 @@ public class Branch {
 		this.parent = null;
 		
 		this.angle = angle;
-		this.length = Math.round(ParamManager.branchLength/100f * height);
+		this.length = Math.round(ParamManager.single[4]/100f * height);
 		this.end = new Vector2(0, length);
-		this.strokeWeight = ParamManager.strokeWeight;
+		this.strokeWeight = ParamManager.single[6];
 		this.generation = 1;
-		if (generation < ParamManager.generations) {
-			children = new Branch[ParamManager.branchingFactor];
+		if (generation < ParamManager.single[1]) {
+			children = new Branch[ParamManager.single[0]];
 			split(end, angle);
 		}
 	}
@@ -53,13 +54,13 @@ public class Branch {
 		Vector2 ref; 
 		
 		// start with most negatively angled branch and work clockwise through for calculations
-		phi = phi - (ParamManager.branchingAngle * ParamManager.branchingFactor * 0.5f) + (ParamManager.branchingAngle * 0.5f);
+		phi = phi - (ParamManager.single[3] * ParamManager.single[0] * 0.5f) + (ParamManager.single[3] * 0.5f);
 		
 		
 		for (int i = 0; i < children.length; i++) {
 			ref = new Vector2(start.x, start.y + calcLength(length));
 			children[i] = new Branch(this, ref.rotate(start, phi), phi);
-			phi += ParamManager.branchingAngle;
+			phi += ParamManager.single[3];
 		}
 		
 		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
@@ -103,14 +104,14 @@ public class Branch {
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
 			// treat the shrink rate as a percentage decrease
-			int val = Math.round(len * ((100 - ParamManager.branchShrinkRate) * 0.01f));
+			int val = Math.round(len * ((100 - ParamManager.single[7]) * 0.01f));
 			return Math.max(val, 0);
 	}
 	
 	// Calculate a stroke weight for this branch based on current Parameters values
 	private float calcStrokeWeight() {
 			// treat the shrink rate as a percentage decrease
-			return Math.max(parent.strokeWeight * ((100 - ParamManager.strokeShrinkRate) * 0.01f), 0);
+			return Math.max(parent.strokeWeight * ((100 - ParamManager.single[7]) * 0.01f), 0);
 	}
 
 }
