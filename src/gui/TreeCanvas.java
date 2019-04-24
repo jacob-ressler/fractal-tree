@@ -102,8 +102,6 @@ public class TreeCanvas extends JPanel {
 		int h = getHeight();
 		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
-			// FIXME: for now this just draw each generation entirely per cycle
-			// It should instead draw up to a certain length of each currgen branch per frame
 			g2.drawLine(b.getStart().x + w, h - b.getStart().y, b.getEnd().x + w, h - b.getEnd().y);
 
 		}
@@ -116,11 +114,8 @@ public class TreeCanvas extends JPanel {
 		Rectangle r = getBounds();
 
         try {
-            BufferedImage i = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_RGB);
+            BufferedImage i = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_ARGB);
             Graphics g = i.createGraphics();
-            // white background
-            g.setColor(Color.white);
-            g.fillRect(0, 0, r.width, r.height);
             // draw the tree
             g.translate(r.width / 2, 0);
             drawNextFrame((Graphics2D) g, tree.getAllBranches());

@@ -23,19 +23,20 @@ public class SingleValueTab extends Tab {
 		super();
 		items = new ArrayList<JComponent>();
 		// create the parameter sliders
-		addItem("Branching Factor", createSlider(0, 10, 2));
-		addItem("Generations", createSlider(0, 10, 2));
-		addItem("Tilt", createSlider(0, 10, 2));
-		addItem("Branching Angle", createSlider(0, 10, 2));
-		addItem("Branch Length", createSlider(0, 10, 2));
-		addItem("Branch Shrink Rate", createSlider(0, 10, 2));
-		addItem("Stroke Weight", createSlider(0, 10, 2));
-		addItem("Stroke Shrink Rate", createSlider(0, 10, 2));
+		int i = 0;
+		addItem("Branching Factor", createSlider(0, 10, 2, i++));
+		addItem("Generations", createSlider(0, 10, 2, i++));
+		addItem("Tilt", createSlider(0, 10, 2, i++));
+		addItem("Branching Angle", createSlider(0, 10, 2, i++));
+		addItem("Branch Length", createSlider(0, 10, 2, i++));
+		addItem("Branch Shrink Rate", createSlider(0, 10, 2, i++));
+		addItem("Stroke Weight", createSlider(0, 10, 2, i++));
+		addItem("Stroke Shrink Rate", createSlider(0, 10, 2, i++));
 	}
 
 	
 	// Creates a panel with a JSlider and JLabel
-	private JPanel createSlider(int min, int max, int val) {
+	private JPanel createSlider(int min, int max, int val, int i) {
 		JLabel sliderLabel = new JLabel();
 	    JLabel sliderValue = new JLabel();
 	    JSlider slider = new JSlider(min, max);
@@ -54,6 +55,8 @@ public class SingleValueTab extends Tab {
             @Override
 			public void stateChanged(ChangeEvent e) {
                 JSlider s = (JSlider) e.getSource();
+                ParamManager.single[i] = s.getValue();
+                //System.out.println(ParamMananger.single[i]);
                 sliderValue.setText(String.valueOf(s.getValue()));
             }
         });
