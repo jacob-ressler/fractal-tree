@@ -31,7 +31,6 @@ public class App extends JFrame {
 	private CustomizationPanel params; // the parameters
 	
 	private int bgcolor = 0x333338; // content pane background color
-	private int panelcolor = 0x222226; // default panel background color
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
