@@ -55,6 +55,29 @@ public abstract class Tab extends JScrollPane {
 		return item;
 	}
 	
+
+	public JComponent addItem(String label, JComponent item, int layoutinfo) {
+		JPanel p = new JPanel();
+		if (label != null && !label.equals("")) {
+			JLabel l = new JLabel(label, JLabel.CENTER);
+			l.setFont(new Font("Muli-Black", Font.BOLD, 16));
+			l.setAlignmentX(0.5f);
+			p.add(l);
+		}
+		p.setBackground(new Color(0xe4e4e4));
+		p.setBorder(new LineBorder(new Color(0x333333), 1));
+		item.setBackground(new Color(0xe4e4e4));
+		p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+		p.setAlignmentX(0.5f);
+
+		p.add(item);
+		// p.setMaximumSize(new Dimension(getWidth(), 200)); // ignored by GridLayout, maybe we should switch to a GridBagLayout?
+		content.add(p);
+		items.add(p);
+		content.revalidate();
+		revalidate();
+		return item;
+	}
 	public void removeItemAt(int index) {
 		// since we changed layout information, we have to revalidate.
 		content.revalidate();

@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import data.Branch;
@@ -15,7 +20,8 @@ import data.ParamManager;
 import utilities.Debug;
 
 public class TreeCanvas extends JPanel {
-
+	public static BufferedImage img;
+	
 	private FractalTree tree;
 	private Graphics2D lastFrame;
 	private int currgen;
@@ -27,6 +33,7 @@ public class TreeCanvas extends JPanel {
 	private long lastFrameTime; // time the last frame was drawn
 
 	public TreeCanvas(int width, int height) {
+		setName("Tree Canvas");
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
 		setDoubleBuffered(true);
@@ -36,6 +43,7 @@ public class TreeCanvas extends JPanel {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				tree = new FractalTree();
 				isAnimating = true;
 				currgen = 1;
 				repaint();
@@ -44,19 +52,6 @@ public class TreeCanvas extends JPanel {
 	}
 
 
-	/*	**FIXME**
-	 *  The entire tree has to be redrawn each frame. However, trying to optimize 
-	 *  the algorithm to only draw the new branches produced the following errors:
-	 *  1. Canvas shrinks on left and top after repainting 
-	 *  	- something to do with not calling super() in the elseif
-	 *  	- if we call super() there, we have to redraw the entire tree each frame
-	 *  2. Single tab gets duplicated in upper left corner of canvas
-	 *  	- possibly due to the shrinking in the top and left?
-	 *  	- only occurs if window has not been resized (no idea why)
-	 *  Another note: these appear to either be a Windows or graphics card issue,
-	 *  as neither occurred on my Ubuntu laptop with only Intel integrated graphics
-	 *  when using an optimized algorithm.
-	 */
 	@Override 
 	protected void paintComponent(Graphics g) {
 		
@@ -67,7 +62,7 @@ public class TreeCanvas extends JPanel {
 			// lastFrame will now hold a copy of the canvas graphics context
 			lastFrame = (Graphics2D) g.create();
 			
-			// set the origin to the top center (+ offset) of the screen
+			// set the origin to the top center of the screen
 			lastFrame.translate(getWidth() / 2, 0);
 			
 			// Get the time for this first frame
@@ -114,6 +109,26 @@ public class TreeCanvas extends JPanel {
 		}
 		currgen++;
 
+	}
+	
+	// Save the canvas to an image file (this is probably a horrible way to do this, but it works)
+	public void saveImage(File f) {
+		Rectangle r = getBounds();
+
+        try {
+            BufferedImage i = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_RGB);
+            Graphics g = i.createGraphics();
+            // white background
+            g.setColor(Color.white);
+            g.fillRect(0, 0, r.width, r.height);
+            // draw the tree
+            g.translate(r.width / 2, 0);
+            drawNextFrame((Graphics2D) g, tree.getAllBranches());
+            g.dispose();
+            ImageIO.write(i, "png", f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 
 }
