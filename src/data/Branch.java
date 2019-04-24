@@ -123,27 +123,15 @@ public class Branch {
 	
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
-		if (ParamManager.bsrIsPercent) {
 			// treat the shrink rate as a percentage decrease
 			int val = Math.round(len * ((100 - ParamManager.branchShrinkRate) * 0.01f));
 			return Math.max(val, 0);
-		}
-		else {
-			// treat the shrink rate as a value decrease
-			return Math.max(len - ParamManager.branchShrinkRate, 0);
-		}
 	}
 	
 	// Calculate a stroke weight for this branch based on current Parameters values
 	private float calcStrokeWeight() {
-		if (ParamManager.ssrIsPercent) {
 			// treat the shrink rate as a percentage decrease
 			return Math.max(parent.strokeWeight * ((100 - ParamManager.strokeShrinkRate) * 0.01f), 0);
-		}
-		else {
-			// treat the shrink rate as a value decrease
-			return Math.max(parent.strokeWeight - ParamManager.strokeShrinkRate, 0);
-		}
 	}
 
 }
