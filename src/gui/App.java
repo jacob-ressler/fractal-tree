@@ -27,7 +27,7 @@ import data.ParamManager;
 public class App extends JFrame {
 	
 	private JSplitPane content; // the content pane
-	private TreeCanvas canvas; // the canvas
+	public static TreeCanvas canvas; // the canvas
 	private CustomizationPanel params; // the parameters
 	
 	private int bgcolor = 0x333338; // content pane background color
@@ -77,6 +77,7 @@ public class App extends JFrame {
 		setMinimumSize(new Dimension(400, 400));
 		
 		content = new JSplitPane();
+		content.setName("Root");
 		content.setBorder(new EmptyBorder(5, 5, 5, 5));
 		content.setBackground(new Color(bgcolor));
 		
