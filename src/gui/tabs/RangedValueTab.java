@@ -21,13 +21,15 @@ public class RangedValueTab extends Tab {
 	public RangedValueTab() {
 		super();
 		items = new ArrayList<JComponent>();
-		// testing it out...
-		addItem("ParamName", createRangeSlider(0, 10, 2, 5));
-		addItem("2", createRangeSlider(0, 10, 2, 5));
-		addItem("3", createRangeSlider(0, 10, 2, 5));
-		addItem("4", createRangeSlider(0, 10, 2, 5));
-		addItem("5", createRangeSlider(0, 10, 2, 5));
-		addItem("6", createRangeSlider(0, 10, 2, 5));
+		// create the parameter sliders
+		addItem("Branching Factor", createRangeSlider(0, 10, 2, 5));
+		addItem("Generations", createRangeSlider(0, 10, 2, 5));
+		addItem("Tilt", createRangeSlider(0, 10, 2, 5));
+		addItem("Branching Angle", createRangeSlider(0, 10, 2, 5));
+		addItem("Branch Length", createRangeSlider(0, 10, 2, 5));
+		addItem("Branch Shrink Rate", createRangeSlider(0, 10, 2, 5));
+		addItem("Stroke Weight", createRangeSlider(0, 10, 2, 5));
+		addItem("Branch Shrink Rate", createRangeSlider(0, 10, 2, 5));
 	}
 	
 	

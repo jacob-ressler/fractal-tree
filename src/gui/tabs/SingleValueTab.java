@@ -20,13 +20,15 @@ public class SingleValueTab extends Tab {
 	public SingleValueTab() {
 		super();
 		items = new ArrayList<JComponent>();
-		// testing it out...
-		addItem("ParamName", createSlider(0, 10, 2));
-		addItem("2", createSlider(0, 10, 2));
-		addItem("3", createSlider(0, 10, 2));
-		addItem("4", createSlider(0, 10, 2));
-		addItem("5", createSlider(0, 10, 2));
-		addItem("6", createSlider(0, 10, 2));
+		// create the parameter sliders
+		addItem("Branching Factor", createSlider(0, 10, 2));
+		addItem("Generations", createSlider(0, 10, 2));
+		addItem("Tilt", createSlider(0, 10, 2));
+		addItem("Branching Angle", createSlider(0, 10, 2));
+		addItem("Branch Length", createSlider(0, 10, 2));
+		addItem("Branch Shrink Rate", createSlider(0, 10, 2));
+		addItem("Stroke Weight", createSlider(0, 10, 2));
+		addItem("Stroke Shrink Rate", createSlider(0, 10, 2));
 	}
 
 	
