@@ -24,19 +24,20 @@ public class RangedValueTab extends Tab {
 		super();
 		items = new ArrayList<JComponent>();
 		// create the parameter sliders
-		addItem("Branching Factor", createRangeSlider(0, 10, 2, 5));
-		addItem("Generations", createRangeSlider(0, 10, 2, 5));
-		addItem("Tilt", createRangeSlider(0, 10, 2, 5));
-		addItem("Branching Angle", createRangeSlider(0, 10, 2, 5));
-		addItem("Branch Length", createRangeSlider(0, 10, 2, 5));
-		addItem("Branch Shrink Rate", createRangeSlider(0, 10, 2, 5));
-		addItem("Stroke Weight", createRangeSlider(0, 10, 2, 5));
-		addItem("Branch Shrink Rate", createRangeSlider(0, 10, 2, 5));
+		int i = 0;
+		addItem("Branching Factor", createSlider(0, 10, i++));
+		addItem("Generations", createSlider(1, 10, i++));
+		addItem("Tilt", createSlider(-20, 20, i++));
+		addItem("Branching Angle", createSlider(0, 180, i++));
+		addItem("Branch Length", createSlider(0, 100, i++));
+		addItem("Branch Shrink Rate", createSlider(0, 100, i++));
+		addItem("Stroke Weight", createSlider(0, 20, i++));
+		addItem("Stroke Shrink Rate", createSlider(0, 100, i++));
 	}
 	
 	
 	// Creates a JPanel with a RangeSlider and 2 JLabels
-	private JPanel createRangeSlider(int min, int max, int lower, int upper) {
+	private JPanel createSlider(int min, int max, int i) {
 		JLabel rangeSliderLabel1 = new JLabel();
 	    JLabel rangeSliderValue1 = new JLabel();
 	    JLabel rangeSliderLabel2 = new JLabel();
@@ -61,6 +62,8 @@ public class RangedValueTab extends Tab {
                 RangeSlider slider = (RangeSlider) e.getSource();
                 rangeSliderValue1.setText(String.valueOf(slider.getValue()));
                 rangeSliderValue2.setText(String.valueOf(slider.getUpperValue()));
+                ParamManager.rangeMin[i] = slider.getValue();
+                ParamManager.rangeMax[i] = slider.getValue();
             }
         });
 
@@ -76,8 +79,8 @@ public class RangedValueTab extends Tab {
             GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         
         // Initialize values.
-        rangeSlider.setValue(lower);
-        rangeSlider.setUpperValue(upper);
+        rangeSlider.setValue(ParamManager.rangeMin[i]);
+        rangeSlider.setUpperValue(ParamManager.rangeMax[i]);
         
         // Initialize value display.
         rangeSliderValue1.setText(String.valueOf(rangeSlider.getValue()));
