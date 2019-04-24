@@ -52,7 +52,7 @@ public class ParamManager {
 		
 		branchingFactor = 2;
 		generations = 5;
-		tilt = 0;
+		tilt = 20;
 		branchingAngle = 90;
 		branchLength = 50;
 		branchShrinkRate = 50;

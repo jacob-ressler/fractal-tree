@@ -30,11 +30,12 @@ public class Branch {
 	
 
 	// constructor for root
-	public Branch(float angle) {
+	public Branch(float angle, int height) {
 		this.parent = null;
-		this.end = new Vector2(0, ParamManager.branchLength);
+		
 		this.angle = angle;
-		this.length = ParamManager.branchLength;
+		this.length = Math.round(ParamManager.branchLength/100f * height);
+		this.end = new Vector2(0, length);
 		this.strokeWeight = ParamManager.strokeWeight;
 		this.generation = 1;
 		if (generation < ParamManager.generations) {
@@ -61,34 +62,12 @@ public class Branch {
 			phi += ParamManager.branchingAngle;
 		}
 		
-//		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
-//		for(Branch b : children)
-//			log += "[" + b.angle + "] ";
-//		
-//		System.out.println(log);
+		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
+		for(Branch b : children)
+			log += "[" + b.angle + "] ";
+		
+		System.out.println(log);
 	}
-	
-//	public Graphics draw(Graphics2D g, int height) {
-//		if (length == 0 || strokeWeight == 0) return g;
-//		
-//		g.setStroke(new BasicStroke(strokeWeight));
-//		
-//		if (parent == null) {
-//			// this is the trunk
-//			g.drawLine(0,  height, end.x, height - end.y);
-//		}
-//		else {
-//			// this is a normal branch
-//			g.drawLine(parent.end.x, height - parent.end.y, end.x, height - end.y);
-//		}
-//		
-//		if (children != null) {
-//			for (Branch b : children) {
-//				b.draw(g, height);
-//			}
-//		}
-//		return g;
-//	}
 	
 	/* 
 	 * ----------------------------

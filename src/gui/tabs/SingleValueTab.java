@@ -1,5 +1,7 @@
 package gui.tabs;
 
+import data.ParamManager;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -53,6 +55,7 @@ public class SingleValueTab extends Tab {
 			public void stateChanged(ChangeEvent e) {
                 JSlider s = (JSlider) e.getSource();
                 sliderValue.setText(String.valueOf(s.getValue()));
+              //  ParamManager.branchingFactor = s.getValue();
             }
         });
 

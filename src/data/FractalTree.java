@@ -9,8 +9,8 @@ public class FractalTree {
 							// structure)
 	private ArrayList<Branch> branches; // all branches of the tree (including root)
 
-	public FractalTree() {
-		this.root = new Branch(ParamManager.tilt);
+	public FractalTree(int height) {
+		this.root = new Branch(ParamManager.tilt, height);
 	}
 
 	// get all branches in this tree
@@ -27,6 +27,7 @@ public class FractalTree {
 
 	// recursively add all branches to the list
 	private void getAllBranches(Branch curr) {
+		if (curr == null) return;
 		branches.add(curr); // add this to the list
 
 		if (curr.getChildren() == null)
