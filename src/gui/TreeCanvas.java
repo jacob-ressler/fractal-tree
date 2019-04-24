@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -102,6 +103,7 @@ public class TreeCanvas extends JPanel {
 		int h = getHeight();
 		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
+			g2.setStroke(new BasicStroke(b.getStrokeWeight()));
 			g2.drawLine(b.getStart().x + w, h - b.getStart().y, b.getEnd().x + w, h - b.getEnd().y);
 
 		}
