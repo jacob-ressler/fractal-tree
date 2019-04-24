@@ -13,7 +13,7 @@ public class Branch {
 	private float strokeWeight;
 	private int generation;
 	
-	//single[] rangedMin[] rangedMax[]
+	//single[] rangeMin[] rangeMax[]
 	
 	// constructor for all branches except root
 	public Branch(Branch parent, Vector2 end, float angle) {
@@ -31,17 +31,29 @@ public class Branch {
 	
 
 	// constructor for root
-	public Branch(float angle, int height) {
+	public Branch(int height) {
 		this.parent = null;
-		
-		this.angle = angle;
-		this.length = Math.round(ParamManager.single[4]/100f * height);
-		this.end = new Vector2(0, length);
-		this.strokeWeight = ParamManager.single[6];
-		this.generation = 1;
-		if (generation < ParamManager.single[1]) {
-			children = new Branch[ParamManager.single[0]];
-			split(end, angle);
+		if (ParamManager.lastActiveTabIndex == 0) {
+			this.angle = ParamManager.single[2];
+			this.length = Math.round(ParamManager.single[4]/100f * height);
+			this.end = new Vector2(0, length);
+			this.strokeWeight = ParamManager.single[6];
+			this.generation = 1;
+			if (generation < ParamManager.single[1]) {
+				children = new Branch[ParamManager.single[0]];
+				split(end, angle);
+			}
+		}
+		else {
+			this.angle = randomRange(2);
+			this.length = Math.round(randomRange(4)/100f * height);
+			this.end = new Vector2(0, length);
+			this.strokeWeight = randomRange(6);
+			this.generation = 1;
+			if (generation < randomRange(1)) {
+				children = new Branch[randomRange(0)];
+				split(end, angle);
+			}
 		}
 	}
 	
@@ -53,16 +65,26 @@ public class Branch {
 		
 		Vector2 ref; 
 		
-		// start with most negatively angled branch and work clockwise through for calculations
-		phi = phi - (ParamManager.single[3] * ParamManager.single[0] * 0.5f) + (ParamManager.single[3] * 0.5f);
-		
-		
-		for (int i = 0; i < children.length; i++) {
-			ref = new Vector2(start.x, start.y + calcLength(length));
-			children[i] = new Branch(this, ref.rotate(start, phi), phi);
-			phi += ParamManager.single[3];
+		if (ParamManager.lastActiveTabIndex == 0) {
+			// start with most negatively angled branch and work clockwise through for calculations
+			phi = phi - (ParamManager.single[3] * ParamManager.single[0] * 0.5f) + (ParamManager.single[3] * 0.5f);
+			
+			for (int i = 0; i < children.length; i++) {
+				ref = new Vector2(start.x, start.y + calcLength(length));
+				children[i] = new Branch(this, ref.rotate(start, phi), phi);
+				phi += ParamManager.single[3];
+			}
 		}
-		
+		else {
+			// start with most negatively angled branch and work clockwise through for calculations
+			phi = phi - (randomRange(3) * randomRange(0) * 0.5f) + (randomRange(3) * 0.5f);
+			
+			for (int i = 0; i < children.length; i++) {
+				ref = new Vector2(start.x, start.y + calcLength(length));
+				children[i] = new Branch(this, ref.rotate(start, phi), phi);
+				phi += randomRange(3);
+			}
+		}
 		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
 		for(Branch b : children)
 			log += "[" + b.angle + "] ";
@@ -90,6 +112,7 @@ public class Branch {
 	
 	public int length() { return this.length; }
 
+	public float getStrokeWeight() { return strokeWeight; }
 	
 	@Override
 	public String toString() {
@@ -104,14 +127,25 @@ public class Branch {
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
 			// treat the shrink rate as a percentage decrease
-			int val = Math.round(len * ((100 - ParamManager.single[5]) * 0.01f));
+			int val = ParamManager.lastActiveTabIndex == 0 ?
+					Math.round(len * ((100 - ParamManager.single[5]) * 0.01f)) :
+					Math.round(len * ((100 - randomRange(5)) * 0.01f));
 			return Math.max(val, 0);
 	}
 	
 	// Calculate a stroke weight for this branch based on current Parameters values
 	private float calcStrokeWeight() {
 			// treat the shrink rate as a percentage decrease
-			return Math.max(parent.strokeWeight * ((100 - ParamManager.single[7]) * 0.01f), 0);
+			return ParamManager.lastActiveTabIndex == 0 ?
+					Math.max(parent.strokeWeight * ((100 - ParamManager.single[7]) * 0.01f), 0) :
+					Math.max(parent.strokeWeight * ((100 - randomRange(7)) * 0.01f), 0);
 	}
 
+	
+	private int randomRange(int i) {
+		float f = (float) Math.random();
+		f *= ParamManager.rangeMax[i] - ParamManager.rangeMax[i];
+		f += ParamManager.rangeMin[i];
+		return Math.round(f);
+	}
 }
