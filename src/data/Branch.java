@@ -23,9 +23,17 @@ public class Branch {
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
 		this.generation = parent.getGeneration() + 1;
-		if (generation < ParamManager.single[1]) {
-			children = new Branch[ParamManager.single[0]];
-			split(end, angle);
+		if (ParamManager.lastActiveTabIndex == 0) {
+			if (generation < ParamManager.single[1]) {
+				children = new Branch[ParamManager.single[0]];
+				split(end, angle);
+			}
+		}
+		else {
+			if (generation < ParamManager.single[1]) {
+				children = new Branch[randomRange(0)];
+				split(end, angle);
+			}
 		}
 	}
 	
@@ -85,6 +93,7 @@ public class Branch {
 				phi += randomRange(3);
 			}
 		}
+		
 		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
 		for(Branch b : children)
 			log += "[" + b.angle + "] ";
@@ -144,8 +153,9 @@ public class Branch {
 	
 	private int randomRange(int i) {
 		float f = (float) Math.random();
-		f *= ParamManager.rangeMax[i] - ParamManager.rangeMax[i];
+		f *= (ParamManager.rangeMax[i] - ParamManager.rangeMin[i]);
 		f += ParamManager.rangeMin[i];
+		//System.out.printf("Min: %d - Max: %d - Val: %d\n", ParamManager.rangeMin[i], ParamManager.rangeMax[i], Math.round(f));
 		return Math.round(f);
 	}
 }
