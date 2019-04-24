@@ -5,6 +5,10 @@ import java.util.ArrayList;
 // Responsible for holding all of the current parameter values
 public class ParamManager {
 	
+	public static Integer[] single = new Integer[8];
+	public static Integer[] rangeMin = new Integer[8];
+	public static Integer[] rangeMax = new Integer[8];
+	
 	/* GENERAL FIELDS - These are not treated as tree parameters */
 	public static Integer lastActiveTabIndex;	// if 0, use single; if 1, use range
 	public static Integer xOffset;				// the horizontal offset of the canvas (for trees that lean)		
@@ -13,34 +17,15 @@ public class ParamManager {
 	public static ArrayList<Integer> colors;	// a list of colors (as hex values) used for the tree
 	
 	/* SINGLE VALUE FIELDS */
-	public static Integer branchingFactor;	// number of branches created at every split point
-	public static Integer generations; 		// number of branches from start branch to any end branch
-	public static Integer tilt; 			// whether tree will lean right(+), left(-) or not at all
-	public static Integer branchingAngle; 	// angle between adjacent branches at the same split point
-	public static Integer branchLength; 	// how long the branches should be drawn (% of canvas height)
-	public static Integer branchShrinkRate;	// rate at which branch length is reduced per split (%)
-	public static Integer strokeWeight;		// how thick branches should be drawn
-	public static Integer strokeShrinkRate;	// rate at which stroke weight is reduced per split (%)
+	// Branching Factor: number of branches created at every split point
+	// Generations: number of branches from start branch to any end branch
+	// Tilt: whether tree will lean right(+), left(-) or not at all
+	// Branching Angle: angle between adjacent branches at the same split point
+	// Branch Length: how long the branches should be drawn (% of canvas height)
+	// Branch Shrink Rate: rate at which branch length is reduced per split (%)
+	// Stroke Weight: how thick branches should be drawn
+	// Stroke Shrink Rate: rate at which stroke weight is reduced per split (%)
 	
-	/* RANGE VALUE FIELDS (MINS) */
-	public static Integer minBranchingFactor;
-	public static Integer minGenerations;
-	public static Integer minTilt;
-	public static Integer minBranchingAngle;
-	public static Integer minBranchLength;
-	public static Integer minBranchShrinkRate;
-	public static Integer minStrokeWeight;
-	public static Integer minStrokeShrinkRate;
-	
-	/* RANGE VALUE FIELDS (MAXES) */
-	public static Integer maxBranchingFactor;
-	public static Integer maxGenerations;
-	public static Integer maxTilt;
-	public static Integer maxBranchingAngle;
-	public static Integer maxBranchLength;
-	public static Integer maxBranchShrinkRate;
-	public static Integer maxStrokeWeight;
-	public static Integer maxStrokeShrinkRate;
 	
 	// set the parameters to their default values
 	public static void reset() {
@@ -50,32 +35,32 @@ public class ParamManager {
 		colors = new ArrayList<Integer>();
 		colors.add(0x000000);
 		
-		branchingFactor = 2;
-		generations = 5;
-		tilt = 0;
-		branchingAngle = 90;
-		branchLength = 50;
-		branchShrinkRate = 50;
-		strokeWeight = 5;
-		strokeShrinkRate = 25;
+		single[0] = 2;	// branching factor
+		single[1] = 5;	// generations
+		single[2] = 0;	// tilt
+		single[3] = 90;	// branching angle
+		single[4] = 50;	// branch length
+		single[5] = 50;	// branch shrink rate
+		single[6] = 5;	// stroke weight
+		single[7] = 25;	// stroke shrink rate
 		
-		minBranchingFactor = 2;
-		minGenerations = 3;
-		minTilt = -45;
-		minBranchingAngle = 45;
-		minBranchLength = 40;
-		minBranchShrinkRate = 25;
-		minStrokeWeight = 3;
-		minStrokeShrinkRate = 30;
+		rangeMin[0] = 2;
+		rangeMin[1] = 3;
+		rangeMin[2] = -45;
+		rangeMin[3] = 45;
+		rangeMin[4] = 40;
+		rangeMin[5] = 25;
+		rangeMin[6] = 3;
+		rangeMin[7] = 30;
 		
-		maxBranchingFactor = 5;
-		maxGenerations = 7;
-		maxTilt = 45;
-		maxBranchingAngle = 135;
-		maxBranchLength = 60;
-		maxBranchShrinkRate = 75;
-		maxStrokeWeight = 7;
-		maxStrokeShrinkRate = 60;
+		rangeMax[0] = 5;
+		rangeMax[1] = 7;
+		rangeMax[2] = 45;
+		rangeMax[3] = 135;
+		rangeMax[4] = 60;
+		rangeMax[5] = 75;
+		rangeMax[6] = 7;
+		rangeMax[7] = 60;
 		
 	}
 	
