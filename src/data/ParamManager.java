@@ -35,16 +35,6 @@ public class ParamManager {
 		colors = new ArrayList<Integer>();
 		colors.add(0x000000);
 		
-<<<<<<< HEAD
-		branchingFactor = 2;
-		generations = 5;
-		tilt = 20;
-		branchingAngle = 90;
-		branchLength = 50;
-		branchShrinkRate = 50;
-		strokeWeight = 5;
-		strokeShrinkRate = 25;
-=======
 		single[0] = 2;	// branching factor
 		single[1] = 5;	// generations
 		single[2] = 0;	// tilt
@@ -53,7 +43,6 @@ public class ParamManager {
 		single[5] = 50;	// branch shrink rate
 		single[6] = 5;	// stroke weight
 		single[7] = 25;	// stroke shrink rate
->>>>>>> 98f4474cbcb100e7c68b1992baf0222dde41d40f
 		
 		rangeMin[0] = 2;
 		rangeMin[1] = 3;
