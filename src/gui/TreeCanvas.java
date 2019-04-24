@@ -38,13 +38,13 @@ public class TreeCanvas extends JPanel {
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
 		setDoubleBuffered(true);
-		tree = new FractalTree(getHeight());
+		tree = new FractalTree(Math.min(getHeight(), getWidth()));
 		currgen = 1;
 		
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				tree = new FractalTree(getHeight());
+				tree = new FractalTree(Math.min(getHeight(), getWidth()));
 				isAnimating = true;
 				currgen = 1;
 				repaint();
