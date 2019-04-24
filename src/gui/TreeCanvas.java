@@ -33,11 +33,9 @@ public class TreeCanvas extends JPanel {
 		tree = new FractalTree();
 		currgen = 1;
 		
-		// FIXME: THIS SHOULD BE REMOVED ONCE UI BUTTONS FOR RENDERING ARE IMPLEMENTED
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//repaint();
 				isAnimating = true;
 				currgen = 1;
 				repaint();
