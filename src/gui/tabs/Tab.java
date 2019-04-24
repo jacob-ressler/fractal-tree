@@ -56,7 +56,8 @@ public abstract class Tab extends JScrollPane {
 	}
 	
 
-	public JComponent addItem(String label, JComponent item, int layoutinfo) {
+	// Used by MiscTab, since it requires a different layout
+	public JComponent addItem(String label, JComponent item, String layoutInfo) {
 		JPanel p = new JPanel();
 		if (label != null && !label.equals("")) {
 			JLabel l = new JLabel(label, JLabel.CENTER);
@@ -72,7 +73,7 @@ public abstract class Tab extends JScrollPane {
 
 		p.add(item);
 		// p.setMaximumSize(new Dimension(getWidth(), 200)); // ignored by GridLayout, maybe we should switch to a GridBagLayout?
-		content.add(p);
+		content.add(p, layoutInfo);
 		items.add(p);
 		content.revalidate();
 		revalidate();
