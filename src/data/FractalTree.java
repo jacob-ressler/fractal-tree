@@ -10,7 +10,7 @@ public class FractalTree {
 	private ArrayList<Branch> branches; // all branches of the tree (including root)
 
 	public FractalTree(int height) {
-		this.root = new Branch(ParamManager.single[2], height);
+			this.root = new Branch(height);
 	}
 
 	// get all branches in this tree
@@ -19,7 +19,6 @@ public class FractalTree {
 			branches = new ArrayList<Branch>();
 			getAllBranches(root);
 
-			//Debug.logArray((Branch[]) branches.toArray());
 		}
 		
 		return branches.toArray(new Branch[1]);
@@ -46,7 +45,6 @@ public class FractalTree {
 		ArrayList<Branch> bs = new ArrayList<Branch>();
 		for (Branch b : branches) {
 			if (b.getGeneration() <= gen) {
-				//Debug.log(b.toString());
 				bs.add(b);
 			}
 		}
@@ -62,7 +60,6 @@ public class FractalTree {
 		ArrayList<Branch> bs = new ArrayList<Branch>();
 		for (Branch b : branches) {
 			if (b.getGeneration() == gen) {
-				//Debug.log(b.toString());
 				bs.add(b);
 			}
 		}
