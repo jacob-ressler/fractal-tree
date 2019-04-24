@@ -55,7 +55,6 @@ public class SingleValueTab extends Tab {
 			public void stateChanged(ChangeEvent e) {
                 JSlider s = (JSlider) e.getSource();
                 sliderValue.setText(String.valueOf(s.getValue()));
-              //  ParamManager.branchingFactor = s.getValue();
             }
         });
 

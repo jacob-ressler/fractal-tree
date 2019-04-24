@@ -82,7 +82,7 @@ public class TreeCanvas extends JPanel {
 			}
 			
 			// let's see if we still have more to animate
-			if (currgen <= ParamManager.generations) {
+			if (currgen <= ParamManager.single[1]) {
 				// we still have more frames to draw
 				repaint();
 			} else {
