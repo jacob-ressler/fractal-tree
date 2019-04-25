@@ -1,21 +1,37 @@
 package gui.tabs;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
 
+import data.ParamManager;
 import gui.App;
 import utilities.Debug;
 import utilities.ImageFilter;
+import utilities.JTextFieldLimit;
 
 public class MiscTab extends Tab {
 
@@ -69,10 +85,57 @@ public class MiscTab extends Tab {
 	
 	// Coloring
 	private JPanel createColoringPanel() {
-		JPanel p = new JPanel(new GridLayout(1, 4, 2, 2));
-		p.setPreferredSize(new Dimension(getWidth(), 200)); // may need to change
+		JPanel p = new JPanel(new GridLayout(5, 4, 2, 2));
+		p.add(colorItem());
+		p.add(colorItem());
+		p.add(colorItem());
+		p.add(colorItem());
+		p.add(colorItem());
+		
 		return p;
 	}
 	
+	
+	private JPanel colorItem() {
+		JPanel p = new JPanel(new GridLayout(3, 4, 2, 2));
+		JLabel l = new JLabel();
+		JTextField colorInput = new JTextField(15);
+		
+		colorInput.setDocument(new JTextFieldLimit(6));
+		
+		colorInput.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            	getColor();
+            }
+			public void insertUpdate(DocumentEvent e) {
+                getColor();
+            }
+			public void removeUpdate(DocumentEvent e) {
+				getColor();
+			}
+			
+			public void getColor() {
+				String text = colorInput.getText();
+				if(text.equals("")) {
+					p.setBackground(Color.black);
+					return;
+				}
+
+				String hexVal = ("0x" + colorInput.getText());
+				p.setBackground(Color.decode(hexVal));
+			}
+		});
+            
+		l.setText("Hex: ");
+        l.setHorizontalAlignment(JLabel.LEFT);
+		p.setPreferredSize(new Dimension(getWidth(), 50)); // may need to change
+		p.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
+		
+		p.add(l);
+		p.add(colorInput);
+		return p;
+	}
+
 	
 }
