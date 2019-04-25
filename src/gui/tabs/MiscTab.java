@@ -18,12 +18,13 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.text.AbstractDocument;
 
 import data.ParamManager;
 import gui.App;
 import utilities.Debug;
 import utilities.ImageFilter;
-import utilities.JTextFieldLimit;
+import utilities.LimitDocumentFilter;
 
 public class MiscTab extends Tab {
 
@@ -78,7 +79,7 @@ public class MiscTab extends Tab {
 	
 	// Coloring
 	private JPanel createColoringPanel() {
-		JPanel p = new JPanel(new GridLayout(5, 4, 2, 2));
+		JPanel p = new JPanel(new GridLayout(5, 4, 3, 3));
 		for (int i = 0; i < 5; i++) {
 			p.add(colorItem(i));
 		}
@@ -89,11 +90,12 @@ public class MiscTab extends Tab {
 	
 	
 	private JPanel colorItem(int i) {
-		JPanel p = new JPanel(new GridLayout(3, 4, 2, 2));
+		JPanel p = new JPanel(new GridLayout(4, 3, 3, 3));
 		JLabel l = new JLabel();
-		JTextField colorInput = new JTextField(15);
+		JTextField colorInput = new JTextField(10);
 		
-		colorInput.setDocument(new JTextFieldLimit(6));
+		// limit the number of characters to 6
+		((AbstractDocument) colorInput.getDocument()).setDocumentFilter(new LimitDocumentFilter(6));
 		
 		colorInput.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -124,12 +126,20 @@ public class MiscTab extends Tab {
 		});
             
 		l.setText("Hex: ");
-        l.setHorizontalAlignment(JLabel.LEFT);
-		p.setPreferredSize(new Dimension(getWidth(), 50)); // may need to change
+        l.setHorizontalAlignment(JLabel.CENTER);
+        l.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
+        l.setOpaque(true);
+        l.setBackground(new Color(0xececec));
+		p.setPreferredSize(new Dimension(getWidth(), 100)); // may need to change
 		p.setBorder(BorderFactory.createEmptyBorder(6, 6, 6, 6));
-		
+		JPanel fill = new JPanel();
+		fill.setOpaque(false);
+		p.add(fill);
 		p.add(l);
 		p.add(colorInput);
+		fill = new JPanel();
+		fill.setOpaque(false);
+		p.add(fill);
 		return p;
 	}
 
