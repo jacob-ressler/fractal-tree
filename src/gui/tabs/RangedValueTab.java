@@ -26,12 +26,12 @@ public class RangedValueTab extends Tab {
 		int i = 0;
 		addItem("Branching Factor", createSlider(0, 10, i++));
 		addItem("Generations", createSlider(1, 10, i++));
-		addItem("Tilt", createSlider(-20, 20, i++));
-		addItem("Branching Angle", createSlider(0, 180, i++));
-		addItem("Branch Length", createSlider(0, 100, i++));
-		addItem("Branch Shrink Rate", createSlider(0, 100, i++));
-		addItem("Stroke Weight", createSlider(0, 20, i++));
-		addItem("Stroke Shrink Rate", createSlider(0, 100, i++));
+		addItem("Tilt", createSlider(-30, 30, i++));
+		addItem("Branching Angle", createSlider(10, 135, i++));
+		addItem("Branch Length", createSlider(10, 60, i++));
+		addItem("Branch Shrink Rate", createSlider(25, 75, i++));
+		addItem("Stroke Weight", createSlider(1, 30, i++));
+		addItem("Stroke Shrink Rate", createSlider(0, 50, i++));
 	}
 	
 	
