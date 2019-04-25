@@ -4,25 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileFilter;
@@ -87,17 +79,16 @@ public class MiscTab extends Tab {
 	// Coloring
 	private JPanel createColoringPanel() {
 		JPanel p = new JPanel(new GridLayout(5, 4, 2, 2));
-		p.add(colorItem());
-		p.add(colorItem());
-		p.add(colorItem());
-		p.add(colorItem());
-		p.add(colorItem());
+		for (int i = 0; i < 5; i++) {
+			p.add(colorItem(i));
+		}
+		
 		
 		return p;
 	}
 	
 	
-	private JPanel colorItem() {
+	private JPanel colorItem(int i) {
 		JPanel p = new JPanel(new GridLayout(3, 4, 2, 2));
 		JLabel l = new JLabel();
 		JTextField colorInput = new JTextField(15);
@@ -109,9 +100,11 @@ public class MiscTab extends Tab {
             public void changedUpdate(DocumentEvent e) {
             	getColor();
             }
+			@Override
 			public void insertUpdate(DocumentEvent e) {
                 getColor();
             }
+			@Override
 			public void removeUpdate(DocumentEvent e) {
 				getColor();
 			}
@@ -120,11 +113,13 @@ public class MiscTab extends Tab {
 				String text = colorInput.getText();
 				if(text.equals("")) {
 					p.setBackground(Color.black);
+					ParamManager.colors.set(i, Color.black);
 					return;
 				}
 
 				String hexVal = ("0x" + colorInput.getText());
 				p.setBackground(Color.decode(hexVal));
+				ParamManager.colors.set(i, Color.decode(hexVal));
 			}
 		});
             
