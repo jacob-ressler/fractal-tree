@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -37,13 +38,13 @@ public class TreeCanvas extends JPanel {
 		setPreferredSize(new Dimension(width, height));
 		setBackground(Color.white);
 		setDoubleBuffered(true);
-		tree = new FractalTree();
+		tree = new FractalTree(Math.min(getHeight(), getWidth()));
 		currgen = 1;
 		
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				tree = new FractalTree();
+				tree = new FractalTree(Math.min(getHeight(), getWidth()));
 				isAnimating = true;
 				currgen = 1;
 				repaint();
@@ -82,7 +83,7 @@ public class TreeCanvas extends JPanel {
 			}
 			
 			// let's see if we still have more to animate
-			if (currgen <= ParamManager.generations) {
+			if (currgen <= ParamManager.single[1]) {
 				// we still have more frames to draw
 				repaint();
 			} else {
@@ -98,12 +99,12 @@ public class TreeCanvas extends JPanel {
 	// draw the next frame based on the current frame
 	private void drawNextFrame(Graphics2D g2, Branch[] branches) {
 		Debug.log(String.valueOf(branches.length));
-		g2.setColor(Color.black); // TODO: feed custom colors to this based on Parameters
+		 // TODO: feed custom colors to this based on Parameters
 		int h = getHeight();
 		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
-			// FIXME: for now this just draw each generation entirely per cycle
-			// It should instead draw up to a certain length of each currgen branch per frame
+			g2.setColor(ParamManager.colors.get((b.getGeneration()-1) % ParamManager.colors.size()));
+			g2.setStroke(new BasicStroke(b.getStrokeWeight()));
 			g2.drawLine(b.getStart().x + w, h - b.getStart().y, b.getEnd().x + w, h - b.getEnd().y);
 
 		}
@@ -116,11 +117,8 @@ public class TreeCanvas extends JPanel {
 		Rectangle r = getBounds();
 
         try {
-            BufferedImage i = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_RGB);
+            BufferedImage i = new BufferedImage(r.width, r.height, BufferedImage.TYPE_INT_ARGB);
             Graphics g = i.createGraphics();
-            // white background
-            g.setColor(Color.white);
-            g.fillRect(0, 0, r.width, r.height);
             // draw the tree
             g.translate(r.width / 2, 0);
             drawNextFrame((Graphics2D) g, tree.getAllBranches());

@@ -13,6 +13,7 @@ public class Branch {
 	private float strokeWeight;
 	private int generation;
 	
+	//single[] rangeMin[] rangeMax[]
 	
 	// constructor for all branches except root
 	public Branch(Branch parent, Vector2 end, float angle) {
@@ -22,24 +23,49 @@ public class Branch {
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
 		this.generation = parent.getGeneration() + 1;
-		if (generation < ParamManager.generations) {
-			children = new Branch[ParamManager.branchingFactor];
-			split(end, angle);
+		
+		if (ParamManager.lastActiveTabIndex == 0) {
+			if (generation < ParamManager.single[1]) {
+				children = new Branch[ParamManager.single[0]];
+				split(end, angle);
+			}
 		}
+		else {
+			if (generation < randomRange(1)) {
+				children = new Branch[randomRange(0)];
+				split(end, angle);
+			}
+		}
+		System.out.println(toString());
 	}
 	
 
 	// constructor for root
-	public Branch(float angle) {
+	public Branch(int height) {
 		this.parent = null;
-		this.end = new Vector2(0, ParamManager.branchLength);
-		this.angle = angle;
-		this.length = ParamManager.branchLength;
-		this.strokeWeight = ParamManager.strokeWeight;
-		this.generation = 1;
-		if (generation < ParamManager.generations) {
-			children = new Branch[ParamManager.branchingFactor];
-			split(end, angle);
+		if (ParamManager.lastActiveTabIndex == 0) {
+			this.angle = ParamManager.single[2];
+			this.length = Math.round(ParamManager.single[4]/100f * height);
+			this.end = new Vector2(0, length);
+			this.strokeWeight = ParamManager.single[6];
+			this.generation = 1;
+			if (generation < ParamManager.single[1]) {
+				children = new Branch[ParamManager.single[0]];
+				split(end, angle);
+			}
+		}
+		else {
+			this.angle = randomRange(2);
+			this.length = Math.round(randomRange(4)/100f * height);
+			this.end = new Vector2(0, length);
+			this.strokeWeight = randomRange(6);
+			this.generation = 1;
+			
+			if (generation < randomRange(1)) {
+				children = new Branch[randomRange(0)];
+				split(end, angle);
+			}
+			System.out.println(toString());
 		}
 	}
 	
@@ -51,14 +77,25 @@ public class Branch {
 		
 		Vector2 ref; 
 		
-		// start with most negatively angled branch and work clockwise through for calculations
-		phi = phi - (ParamManager.branchingAngle * ParamManager.branchingFactor * 0.5f) + (ParamManager.branchingAngle * 0.5f);
-		
-		
-		for (int i = 0; i < children.length; i++) {
-			ref = new Vector2(start.x, start.y + calcLength(length));
-			children[i] = new Branch(this, ref.rotate(start, phi), phi);
-			phi += ParamManager.branchingAngle;
+		if (ParamManager.lastActiveTabIndex == 0) {
+			// start with most negatively angled branch and work clockwise through for calculations
+			phi = phi - (ParamManager.single[3] * ParamManager.single[0] * 0.5f) + (ParamManager.single[3] * 0.5f);
+			
+			for (int i = 0; i < children.length; i++) {
+				ref = new Vector2(start.x, start.y + calcLength(length));
+				children[i] = new Branch(this, ref.rotate(start, phi), phi);
+				phi += ParamManager.single[3];
+			}
+		}
+		else {
+			// start with most negatively angled branch and work clockwise through for calculations
+			phi = phi - (randomRange(3) * randomRange(0) * 0.5f) + (randomRange(3) * 0.5f);
+			
+			for (int i = 0; i < children.length; i++) {
+				ref = new Vector2(start.x, start.y + calcLength(length));
+				children[i] = new Branch(this, ref.rotate(start, phi), phi);
+				phi += randomRange(3);
+			}
 		}
 		
 //		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
@@ -67,28 +104,6 @@ public class Branch {
 //		
 //		System.out.println(log);
 	}
-	
-//	public Graphics draw(Graphics2D g, int height) {
-//		if (length == 0 || strokeWeight == 0) return g;
-//		
-//		g.setStroke(new BasicStroke(strokeWeight));
-//		
-//		if (parent == null) {
-//			// this is the trunk
-//			g.drawLine(0,  height, end.x, height - end.y);
-//		}
-//		else {
-//			// this is a normal branch
-//			g.drawLine(parent.end.x, height - parent.end.y, end.x, height - end.y);
-//		}
-//		
-//		if (children != null) {
-//			for (Branch b : children) {
-//				b.draw(g, height);
-//			}
-//		}
-//		return g;
-//	}
 	
 	/* 
 	 * ----------------------------
@@ -110,11 +125,12 @@ public class Branch {
 	
 	public int length() { return this.length; }
 
+	public float getStrokeWeight() { return strokeWeight; }
 	
 	@Override
 	public String toString() {
 		String s = "";
-		s += "gen "+generation+" | "+angle+" deg | ";
+		s += "gen "+generation+" | "+angle+" deg | "+length+" long | ";
 		s += children == null ? "0 children" : children.length + " children";
 		s += " | ends "+end.toString();
 		
@@ -124,14 +140,26 @@ public class Branch {
 	// Calculate a length based on the given length and current Parameters values.
 	private int calcLength(int len) {
 			// treat the shrink rate as a percentage decrease
-			int val = Math.round(len * ((100 - ParamManager.branchShrinkRate) * 0.01f));
+			int val = ParamManager.lastActiveTabIndex == 0 ?
+					Math.round(len * ((100 - ParamManager.single[5]) * 0.01f)) :
+					Math.round(len * ((100 - randomRange(5)) * 0.01f));
 			return Math.max(val, 0);
 	}
 	
 	// Calculate a stroke weight for this branch based on current Parameters values
 	private float calcStrokeWeight() {
 			// treat the shrink rate as a percentage decrease
-			return Math.max(parent.strokeWeight * ((100 - ParamManager.strokeShrinkRate) * 0.01f), 0);
+			return ParamManager.lastActiveTabIndex == 0 ?
+					Math.max(parent.strokeWeight * ((100 - ParamManager.single[7]) * 0.01f), 0) :
+					Math.max(parent.strokeWeight * ((100 - randomRange(7)) * 0.01f), 0);
 	}
 
+	
+	private int randomRange(int i) {
+		float f = (float) Math.random();
+		f *= (ParamManager.rangeMax[i] - ParamManager.rangeMin[i]);
+		f += ParamManager.rangeMin[i];
+		//System.out.printf("Min: %d - Max: %d - Val: %d\n", ParamManager.rangeMin[i], ParamManager.rangeMax[i], Math.round(f));
+		return Math.round(f);
+	}
 }

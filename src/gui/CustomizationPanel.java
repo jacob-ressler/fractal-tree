@@ -8,10 +8,15 @@ import gui.tabs.MiscTab;
 import gui.tabs.RangedValueTab;
 import gui.tabs.SingleValueTab;
 import gui.tabs.Tab;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import data.ParamManager;
 
 public class CustomizationPanel extends JTabbedPane {
 
 	Tab svt, rvt, misc;
+	
 	
 	public CustomizationPanel(int w, int h) {
 		
@@ -27,6 +32,16 @@ public class CustomizationPanel extends JTabbedPane {
 		
 		misc = new MiscTab();
 		addTab("Misc.", null, misc, "Set color pattern, toggle animation");
+		
+		//add listener to keep track of selected tab.
+		addChangeListener(new ChangeListener() {
+
+            @Override
+            public void stateChanged(ChangeEvent e) {
+            	if(getSelectedIndex() != 2)
+            		ParamManager.lastActiveTabIndex = getSelectedIndex();
+            }
+        });
 		
 	}
 	
