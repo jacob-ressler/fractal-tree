@@ -99,10 +99,11 @@ public class TreeCanvas extends JPanel {
 	// draw the next frame based on the current frame
 	private void drawNextFrame(Graphics2D g2, Branch[] branches) {
 		Debug.log(String.valueOf(branches.length));
-		g2.setColor(Color.black); // TODO: feed custom colors to this based on Parameters
+		 // TODO: feed custom colors to this based on Parameters
 		int h = getHeight();
 		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
+			g2.setColor(ParamManager.colors.get((b.getGeneration()-1) % ParamManager.colors.size()));
 			g2.setStroke(new BasicStroke(b.getStrokeWeight()));
 			g2.drawLine(b.getStart().x + w, h - b.getStart().y, b.getEnd().x + w, h - b.getEnd().y);
 
