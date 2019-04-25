@@ -1,5 +1,6 @@
 package data;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 // Responsible for holding all of the current parameter values
@@ -14,7 +15,7 @@ public class ParamManager {
 	public static Integer xOffset;				// the horizontal offset of the canvas (for trees that lean)		
 	
 	/* COLORING FIELDS */
-	public static ArrayList<Integer> colors;	// a list of colors (as hex values) used for the tree
+	public static ArrayList<Color> colors;	// a list of colors (as hex values) used for the tree
 	
 	/* SINGLE VALUE FIELDS */
 	// Branching Factor: number of branches created at every split point
@@ -32,8 +33,12 @@ public class ParamManager {
 		lastActiveTabIndex = 0;
 		xOffset = 0;
 		
-		colors = new ArrayList<Integer>();
-		colors.add(0x000000);
+		colors = new ArrayList<Color>();
+		colors.add(Color.black);
+		colors.add(Color.black);
+		colors.add(Color.black);
+		colors.add(Color.black);
+		colors.add(Color.black);
 		
 		single[0] = 2;	// branching factor
 		single[1] = 5;	// generations
