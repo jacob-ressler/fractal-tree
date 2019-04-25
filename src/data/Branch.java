@@ -36,7 +36,7 @@ public class Branch {
 				split(end, angle);
 			}
 		}
-		System.out.println(toString());
+		//System.out.println(toString());
 	}
 	
 
@@ -65,7 +65,7 @@ public class Branch {
 				children = new Branch[randomRange(0)];
 				split(end, angle);
 			}
-			System.out.println(toString());
+			//System.out.println(toString());
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class Branch {
 		
 		if (ParamManager.lastActiveTabIndex == 0) {
 			// start with most negatively angled branch and work clockwise through for calculations
-			phi = phi - (ParamManager.single[3] * ParamManager.single[0] * 0.5f) + (ParamManager.single[3] * 0.5f);
+			phi = phi + (ParamManager.single[2]*getGeneration()) - (ParamManager.single[3] * ParamManager.single[0] * 0.5f) + (ParamManager.single[3] * 0.5f);
 			
 			for (int i = 0; i < children.length; i++) {
 				ref = new Vector2(start.x, start.y + calcLength(length));
@@ -89,7 +89,7 @@ public class Branch {
 		}
 		else {
 			// start with most negatively angled branch and work clockwise through for calculations
-			phi = phi - (randomRange(3) * randomRange(0) * 0.5f) + (randomRange(3) * 0.5f);
+			phi = phi + (randomRange(2)*getGeneration()) - (randomRange(3) * randomRange(0) * 0.5f) + (randomRange(3) * 0.5f);
 			
 			for (int i = 0; i < children.length; i++) {
 				ref = new Vector2(start.x, start.y + calcLength(length));

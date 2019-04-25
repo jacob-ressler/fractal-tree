@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import data.Branch;
 import data.FractalTree;
 import data.ParamManager;
-import utilities.Debug;
 
 public class TreeCanvas extends JPanel {
 	public static BufferedImage img;
@@ -98,8 +97,7 @@ public class TreeCanvas extends JPanel {
 
 	// draw the next frame based on the current frame
 	private void drawNextFrame(Graphics2D g2, Branch[] branches) {
-		Debug.log(String.valueOf(branches.length));
-		 // TODO: feed custom colors to this based on Parameters
+		//Debug.log(String.valueOf(branches.length));
 		int h = getHeight();
 		int w = ParamManager.xOffset;
 		for (Branch b : branches) {
