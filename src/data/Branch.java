@@ -23,6 +23,7 @@ public class Branch {
 		this.length = calcLength(parent.length);
 		this.strokeWeight = calcStrokeWeight();
 		this.generation = parent.getGeneration() + 1;
+		
 		if (ParamManager.lastActiveTabIndex == 0) {
 			if (generation < ParamManager.single[1]) {
 				children = new Branch[ParamManager.single[0]];
@@ -30,11 +31,12 @@ public class Branch {
 			}
 		}
 		else {
-			if (generation < ParamManager.single[1]) {
+			if (generation < randomRange(1)) {
 				children = new Branch[randomRange(0)];
 				split(end, angle);
 			}
 		}
+		System.out.println(toString());
 	}
 	
 
@@ -58,10 +60,12 @@ public class Branch {
 			this.end = new Vector2(0, length);
 			this.strokeWeight = randomRange(6);
 			this.generation = 1;
+			
 			if (generation < randomRange(1)) {
 				children = new Branch[randomRange(0)];
 				split(end, angle);
 			}
+			System.out.println(toString());
 		}
 	}
 	
@@ -94,11 +98,11 @@ public class Branch {
 			}
 		}
 		
-		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
-		for(Branch b : children)
-			log += "[" + b.angle + "] ";
-		
-		System.out.println(log);
+//		String log = "Initial Angle:  " + angle + "\nChildren Angles: ";
+//		for(Branch b : children)
+//			log += "[" + b.angle + "] ";
+//		
+//		System.out.println(log);
 	}
 	
 	/* 
@@ -126,7 +130,7 @@ public class Branch {
 	@Override
 	public String toString() {
 		String s = "";
-		s += "gen "+generation+" | "+angle+" deg | ";
+		s += "gen "+generation+" | "+angle+" deg | "+length+" long | ";
 		s += children == null ? "0 children" : children.length + " children";
 		s += " | ends "+end.toString();
 		

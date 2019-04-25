@@ -65,7 +65,7 @@ public class RangedValueTab extends Tab {
                 rangeSliderValue1.setText(String.valueOf(slider.getValue()));
                 rangeSliderValue2.setText(String.valueOf(slider.getUpperValue()));
                 ParamManager.rangeMin[i] = slider.getValue();
-                ParamManager.rangeMax[i] = slider.getValue();
+                ParamManager.rangeMax[i] = slider.getUpperValue();
             }
         });
 
