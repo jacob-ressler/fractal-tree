@@ -49,23 +49,23 @@ public class ParamManager {
 		single[6] = 5;	// stroke weight
 		single[7] = 25;	// stroke shrink rate
 		
-		rangeMin[0] = 2;
-		rangeMin[1] = 3;
-		rangeMin[2] = -45;
-		rangeMin[3] = 45;
-		rangeMin[4] = 40;
-		rangeMin[5] = 25;
-		rangeMin[6] = 3;
-		rangeMin[7] = 30;
+		rangeMin[0] = 3;
+		rangeMin[1] = 4;
+		rangeMin[2] = -10;
+		rangeMin[3] = 20;
+		rangeMin[4] = 25;
+		rangeMin[5] = 40;
+		rangeMin[6] = 5;
+		rangeMin[7] = 20;
 		
-		rangeMax[0] = 5;
+		rangeMax[0] = 6;
 		rangeMax[1] = 7;
-		rangeMax[2] = 45;
-		rangeMax[3] = 135;
-		rangeMax[4] = 60;
-		rangeMax[5] = 75;
-		rangeMax[6] = 7;
-		rangeMax[7] = 60;
+		rangeMax[2] = 10;
+		rangeMax[3] = 70;
+		rangeMax[4] = 50;
+		rangeMax[5] = 60;
+		rangeMax[6] = 15;
+		rangeMax[7] = 40;
 		
 	}
 	
