@@ -69,7 +69,8 @@ public class MiscTab extends Tab {
 					  String ext = f.getName();
 					  int i = ext.lastIndexOf(".");
 					  ext = i == -1 ? "" : ext.substring(i);
-					  if (ext.equals("") || !ext.equals(".png") || !ext.equals(".jpg") || !ext.equals(".jpeg")) {
+					  System.out.println(ext);
+					  if (ext.equals("") || (!ext.equals(".png") && !ext.equals(".jpg") && !ext.equals(".jpeg"))) {
 						  f = new File(f.getAbsoluteFile() + ".png");
 					  }
 					  

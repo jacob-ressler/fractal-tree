@@ -1,7 +1,5 @@
 package gui.tabs;
 
-import data.ParamManager;
-
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -15,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import data.ParamManager;
 import gui.vendor.ernieyu.RangeSlider;
 
 public class RangedValueTab extends Tab {
@@ -54,6 +53,9 @@ public class RangedValueTab extends Tab {
         rangeSliderValue2.setHorizontalAlignment(JLabel.LEFT);
         
         rangeSlider.setPreferredSize(new Dimension(240, rangeSlider.getPreferredSize().height));
+     // Initialize values.
+        rangeSlider.setValue(ParamManager.rangeMin[i]);
+        rangeSlider.setUpperValue(ParamManager.rangeMax[i]);
         
         // Add listener to update display.
         rangeSlider.addChangeListener(new ChangeListener() {
@@ -78,9 +80,7 @@ public class RangedValueTab extends Tab {
         p.add(rangeSlider      , new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0,
             GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         
-        // Initialize values.
-        rangeSlider.setValue(ParamManager.rangeMin[i]);
-        rangeSlider.setUpperValue(ParamManager.rangeMax[i]);
+        
         
         // Initialize value display.
         rangeSliderValue1.setText(String.valueOf(rangeSlider.getValue()));
