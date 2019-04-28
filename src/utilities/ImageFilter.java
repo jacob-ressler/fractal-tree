@@ -4,6 +4,12 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
+/**
+ * A file dialog filter to only show directories and PNG/JPG files.<br>
+ * A subclass of {@link FileFilter}
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class ImageFilter extends FileFilter {
 
 	@Override

@@ -3,7 +3,11 @@ package gui.vendor.ernieyu;
 import javax.swing.JSlider;
 
 /**
- * An extension of JSlider to select a range of values using two thumb controls.
+ * This class was developed by Ernie Yu as an open source extension to Swing's
+ * JSlider to support both a minimum and maximum value. For licensing information, 
+ * visit Ernie Yu's <a href="www.github.com/ernieyu/Swing-range-slider">GitHub repository</a>.
+ * 
+ * <p>An extension of JSlider to select a range of values using two thumb controls.
  * The thumb controls are used to select the lower and upper value of a range
  * with predetermined minimum and maximum values.
  * 

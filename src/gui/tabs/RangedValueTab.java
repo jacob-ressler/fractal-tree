@@ -16,9 +16,17 @@ import javax.swing.event.ChangeListener;
 import data.ParamManager;
 import gui.vendor.ernieyu.RangeSlider;
 
+/**
+ * The "Ranged" tab. Holds all ranged-value customization UI.
+ * <p>Subclass of {@link Tab}
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class RangedValueTab extends Tab {
 
-	
+	/**
+	 * Create a new RangedValueTab.
+	 */
 	public RangedValueTab() {
 		super();
 		items = new ArrayList<JComponent>();
@@ -35,7 +43,17 @@ public class RangedValueTab extends Tab {
 	}
 	
 	
-	// Creates a JPanel with a RangeSlider and 2 JLabels
+	/**
+	 * Creates a JPanel with 4 {@link JLabel}s and a {@link RangeSlider}.
+	 * One JLabel displays "Min:", with another changing dynamically
+	 * to display the current lower slider value.
+	 * The same is done for the upper slider value with the other 2 JLabels.
+	 * @param min the lower bound of the slider
+	 * @param max the upper bound of the slider
+	 * @param i an index value used to link this slider with its corresponding {@link Integer}s
+	 * in {@link ParamManager}.rangeMin[] and {@link ParamManager}.rangeMax[]
+	 * @return the JPanel
+	 */
 	private JPanel createSlider(int min, int max, int i) {
 		JLabel rangeSliderLabel1 = new JLabel();
 	    JLabel rangeSliderValue1 = new JLabel();
@@ -53,7 +71,7 @@ public class RangedValueTab extends Tab {
         rangeSliderValue2.setHorizontalAlignment(JLabel.LEFT);
         
         rangeSlider.setPreferredSize(new Dimension(240, rangeSlider.getPreferredSize().height));
-     // Initialize values.
+        // Initialize values.
         rangeSlider.setValue(ParamManager.rangeMin[i]);
         rangeSlider.setUpperValue(ParamManager.rangeMax[i]);
         
@@ -79,8 +97,6 @@ public class RangedValueTab extends Tab {
             GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         p.add(rangeSlider      , new GridBagConstraints(0, 2, 3, 1, 0.0, 0.0,
             GridBagConstraints.SOUTH, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-        
-        
         
         // Initialize value display.
         rangeSliderValue1.setText(String.valueOf(rangeSlider.getValue()));

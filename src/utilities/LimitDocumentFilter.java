@@ -4,10 +4,21 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 
+/**
+ * A document filter for limiting the number of characters 
+ * that can be entered in a text field. <br>
+ * A subclass of {@link DocumentFilter}
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class LimitDocumentFilter extends DocumentFilter {
 
     private int limit;
 
+    /**
+     * Create a new LimitDocumentFilter with the specified character limit
+     * @param limit the character limit
+     */
     public LimitDocumentFilter(int limit) {
         if (limit <= 0) {
             throw new IllegalArgumentException("Limit can not be <= 0");

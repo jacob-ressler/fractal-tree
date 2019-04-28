@@ -22,15 +22,25 @@ import javax.swing.text.AbstractDocument;
 
 import data.ParamManager;
 import gui.App;
+import gui.TreeCanvas;
 import utilities.Debug;
 import utilities.ImageFilter;
 import utilities.LimitDocumentFilter;
 
+/**
+ * The "Misc" tab. Holds all miscellaneous customization UI.
+ * <p>Subclass of {@link Tab}
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class MiscTab extends Tab {
 
 	JFileChooser saver;
 	JPanel coloringPanel;
 	
+	/**
+	 * Create a new MiscTab.
+	 */
 	public MiscTab() {
 		super();
 		saver = new JFileChooser();
@@ -39,7 +49,11 @@ public class MiscTab extends Tab {
 		addItem("Color Pattern", createColoringPanel(), BorderLayout.CENTER);
 	}
 	
-	// Image Saving
+	/**
+	 * Create a {@link JButton} that when pressed will create a {@link JFileChooser}
+	 * dialog for saving the {@link TreeCanvas} graphics context to an image file.
+	 * @return the created JButton
+	 */
 	private JButton createSaveButton() {
 		JButton btn = new JButton("Save Image");
 		btn.setAlignmentX(0.5f);
@@ -77,18 +91,27 @@ public class MiscTab extends Tab {
 		return btn;
 	}
 	
-	// Coloring
+	/**
+	 * Create a JPanel to hold all tree coloring-related UI.
+	 * <p>Currently, this is hard-coded to only create 5 children panels for
+	 * color customization. In the future, we hope to improve this to 
+	 * support a variable number.
+	 * @return the JPanel
+	 */
 	private JPanel createColoringPanel() {
 		JPanel p = new JPanel(new GridLayout(5, 4, 3, 3));
 		for (int i = 0; i < 5; i++) {
 			p.add(colorItem(i));
 		}
-		
-		
 		return p;
 	}
 	
-	
+	/**
+	 * Create a color customization panel and tie it to a {@link Color} 
+	 * in {@link ParamManager}.colors
+	 * @param i the index ofthe {@link ParamManager}.colors {@link Color} this item is linked to
+	 * @return the created JPanel
+	 */
 	private JPanel colorItem(int i) {
 		JPanel p = new JPanel(new GridLayout(4, 3, 3, 3));
 		JLabel l = new JLabel();

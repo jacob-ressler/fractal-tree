@@ -24,13 +24,22 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import data.ParamManager;
 
+/**
+ * The main application window.
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class App extends JFrame {
 	
-	private JSplitPane content; // the content pane
 	public static TreeCanvas canvas; // the canvas
-	private CustomizationPanel params; // the parameters
 	
-	private int bgcolor = 0x333338; // content pane background color
+	/**
+	 * The main content pane
+	 */
+	private JSplitPane content;
+	private CustomizationPanel custom;
+	
+	private final int bgcolor = 0x333338;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -47,37 +56,41 @@ public class App extends JFrame {
 		});
 	}
 
+	/**
+	 * Create the application window and all necessary components.
+	 */
 	public App() {
 		ParamManager.reset();
 		initFont();
 		customizeUI();
 		initFrame();
 		initCanvas();
-		initParamPanel();
+		initCustomizationPanel();
 		validate();
 	}
 
-	
-
+	/**
+	 * Initialize the external font for use in the application.
+	 */
 	private void initFont() {
 		try {
-		     GraphicsEnvironment ge = 
-		         GraphicsEnvironment.getLocalGraphicsEnvironment();
-		     ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Muli-Black.ttf")));
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("fonts/Muli-Black.ttf")));
 		} catch (IOException | FontFormatException e) {
-		     //Handle exception
+			e.printStackTrace();
 		}
 		
 	}
 
-	// set up some initial properties for the frame.
+	/**
+	 * Set up the initial properties for the frame and content pane
+	 */
 	private void initFrame() {
 		setTitle("Fractal Tree Generator");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(400, 400));
 		
 		content = new JSplitPane();
-		content.setName("Root");
 		content.setBorder(new EmptyBorder(5, 5, 5, 5));
 		content.setBackground(new Color(bgcolor));
 		
@@ -108,7 +121,9 @@ public class App extends JFrame {
 		setContentPane(content);
 	}
 
-	
+	/**
+	 * Set up the TreeCanvas
+	 */
 	private void initCanvas() {
 		// Put a label above the canvas with instructions
 		JPanel p = new JPanel(new BorderLayout(0, 2));
@@ -123,14 +138,18 @@ public class App extends JFrame {
 		content.add(p, JSplitPane.LEFT);
 	}
 	
-	
-	private void initParamPanel() {
-		params = new CustomizationPanel(250, 500);
-		content.add(params, JSplitPane.RIGHT);
+	/**
+	 * Set up the CustomizationPanel
+	 */
+	private void initCustomizationPanel() {
+		custom = new CustomizationPanel(250, 500);
+		content.add(custom, JSplitPane.RIGHT);
 	}
 	
+	/**
+	 * Customize the UI to use system look and feel with slight modifications.
+	 */
 	private void customizeUI() { 
-		
 		// use the system look and feel, since it almost definitely 
 		// will look better than the default Swing one
 		try {

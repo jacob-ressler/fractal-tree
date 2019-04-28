@@ -3,21 +3,30 @@ package gui;
 import java.awt.Dimension;
 
 import javax.swing.JTabbedPane;
-
-import gui.tabs.MiscTab;
-import gui.tabs.RangedValueTab;
-import gui.tabs.SingleValueTab;
-import gui.tabs.Tab;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import data.ParamManager;
+import gui.tabs.MiscTab;
+import gui.tabs.RangedValueTab;
+import gui.tabs.SingleValueTab;
+import gui.tabs.Tab;
 
+/**
+ * A 3-tab panel that holds all customizable parameters.<br>
+ * Subclass of {@link JTabbedPane}
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class CustomizationPanel extends JTabbedPane {
 
-	Tab svt, rvt, misc;
+	private Tab svt, rvt, misc;
 	
-	
+	/**
+	 * Create a tabbed pane with 3 tabs
+	 * @param w preferred width
+	 * @param h preferred height
+	 */
 	public CustomizationPanel(int w, int h) {
 		
 		setPreferredSize(new Dimension(w, h));

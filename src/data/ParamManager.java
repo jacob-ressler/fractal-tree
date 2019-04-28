@@ -3,35 +3,77 @@ package data;
 import java.awt.Color;
 import java.util.ArrayList;
 
-// Responsible for holding all of the current parameter values
+/**
+ * A public static class for managing all parameter values used in
+ * creating and drawing the fractal trees.
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class ParamManager {
-	
+	/**
+	 * Holds the 8 single-value parameters.
+	 * <ol>
+	 * <li><u>Branching Factor:</u> number of branches created at every split point
+	 * <li><u>Generations:</u> number of branches from start branch to any end branch
+	 * <li><u>Tilt:</u> whether tree will lean right(-), left(+) or not at all
+	 * <li><u>Branching Angle:</u> angle between adjacent branches at the same split point
+	 * <li><u>Branch Length:</u> how long the branches should be drawn (% of canvas width/height)
+	 * <li><u>Branch Shrink Rate:</u> rate at which branch length is reduced per split (%)
+	 * <li><u>Stroke Weight:</u> how thick branches should be drawn
+	 * <li><u>Stroke Shrink Rate:</u> rate at which stroke weight is reduced per split (%)
+	 * </ol>
+	 */
 	public static Integer[] single = new Integer[8];
+	
+	/**
+	 * Holds the 8 lower ranged-value parameters.
+	 * <ol>
+	 * <li><u>Branching Factor:</u> number of branches created at every split point
+	 * <li><u>Generations:</u> number of branches from start branch to any end branch
+	 * <li><u>Tilt:</u> whether tree will lean right(-), left(+) or not at all
+	 * <li><u>Branching Angle:</u> angle between adjacent branches at the same split point
+	 * <li><u>Branch Length:</u> how long the branches should be drawn (% of canvas width/height)
+	 * <li><u>Branch Shrink Rate:</u> rate at which branch length is reduced per split (%)
+	 * <li><u>Stroke Weight:</u> how thick branches should be drawn
+	 * <li><u>Stroke Shrink Rate:</u> rate at which stroke weight is reduced per split (%)
+	 * </ol>
+	 */
 	public static Integer[] rangeMin = new Integer[8];
+	
+	/**
+	 * Holds the 8 upper ranged-value parameters.
+	 * <ol>
+	 * <li><u>Branching Factor:</u> number of branches created at every split point
+	 * <li><u>Generations:</u> number of branches from start branch to any end branch
+	 * <li><u>Tilt:</u> whether tree will lean right(-), left(+) or not at all
+	 * <li><u>Branching Angle:</u> angle between adjacent branches at the same split point
+	 * <li><u>Branch Length:</u> how long the branches should be drawn (% of canvas width/height)
+	 * <li><u>Branch Shrink Rate:</u> rate at which branch length is reduced per split (%)
+	 * <li><u>Stroke Weight:</u> how thick branches should be drawn
+	 * <li><u>Stroke Shrink Rate:</u> rate at which stroke weight is reduced per split (%)
+	 * </ol>
+	 */
 	public static Integer[] rangeMax = new Integer[8];
 	
-	/* GENERAL FIELDS - These are not treated as tree parameters */
-	public static Integer lastActiveTabIndex;	// if 0, use single; if 1, use range
-	public static Integer xOffset;				// the horizontal offset of the canvas (for trees that lean)		
+	/**
+	 * The index of the current active tab (excluding Misc)
+	 * <p><b>0</b> - if "Single" tab was active more recently than "Ranged" tab<br>
+	 * <b>1</b> - otherwise
+	 */
+	public static Integer lastActiveTabIndex;		
 	
-	/* COLORING FIELDS */
-	public static ArrayList<Color> colors;	// a list of colors (as hex values) used for the tree
+	/**
+	 * A list of colors to be used for coloring the drawn tree.
+	 * Currently fixed at 5 colors, but will ideally be variable in the future.
+	 * <p>The index used for a branch is determined by its generation modulo the size of this list.
+	 */
+	public static ArrayList<Color> colors;
 	
-	/* SINGLE VALUE FIELDS */
-	// Branching Factor: number of branches created at every split point
-	// Generations: number of branches from start branch to any end branch
-	// Tilt: whether tree will lean right(+), left(-) or not at all
-	// Branching Angle: angle between adjacent branches at the same split point
-	// Branch Length: how long the branches should be drawn (% of canvas height)
-	// Branch Shrink Rate: rate at which branch length is reduced per split (%)
-	// Stroke Weight: how thick branches should be drawn
-	// Stroke Shrink Rate: rate at which stroke weight is reduced per split (%)
-	
-	
-	// set the parameters to their default values
+	/**
+	 * Initialize all parameters and set their default values. Called on application startup.
+	 */
 	public static void reset() {
 		lastActiveTabIndex = 0;
-		xOffset = 0;
 		
 		colors = new ArrayList<Color>();
 		colors.add(Color.black);
