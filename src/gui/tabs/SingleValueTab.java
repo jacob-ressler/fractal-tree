@@ -16,9 +16,17 @@ import javax.swing.event.ChangeListener;
 
 import data.ParamManager;
 
+/**
+ * The "Single" tab. Holds all single-value customization UI.
+ * <p>Subclass of {@link Tab}
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class SingleValueTab extends Tab {
 
-	
+	/**
+	 * Create a new SingleValueTab.
+	 */
 	public SingleValueTab() {
 		super();
 		items = new ArrayList<JComponent>();
@@ -35,7 +43,16 @@ public class SingleValueTab extends Tab {
 	}
 
 	
-	// Creates a panel with a JSlider and JLabel
+	/**
+	 * Creates a JPanel with 2 {@link JLabel}s and a {@link JSlider}.
+	 * One JLabel displays "Value:", with the other changing dynamically
+	 * to display the current slider value.
+	 * @param min the lower bound of the slider
+	 * @param max the upper bound of the slider
+	 * @param i an index value used to link this slider with its corresponding {@link Integer}
+	 * in {@link ParamManager}.single[]
+	 * @return the JPanel
+	 */
 	private JPanel createSlider(int min, int max, int i) {
 		JLabel sliderLabel = new JLabel();
 	    JLabel sliderValue = new JLabel();

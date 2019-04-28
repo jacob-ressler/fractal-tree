@@ -1,8 +1,16 @@
 package utilities;
 
-// A static class with some useful debugging functions
+/**
+ * A static class with some useful debugging methods.
+ * @author Jacob Ressler & Anthony Lantz
+ *
+ */
 public class Debug {
 	
+	/**
+	 * Prints an array to the console using the elements' toString method.
+	 * @param arr any object array
+	 */
 	public static <T> void logArray(T[] arr) {
 		String log = "Printing array...\n";
 		
@@ -13,6 +21,10 @@ public class Debug {
 		System.out.println(log);
 	}
 	
+	/**
+	 * Print a string to the console
+	 * @param str the string
+	 */
 	public static void log(String str) {
 		System.out.println(str);
 	}

@@ -18,7 +18,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSliderUI;
 
 /**
- * UI delegate for the RangeSlider component.  RangeSliderUI paints two thumbs,
+ * This class was developed by Ernie Yu as an open source extension to Swing's
+ * JSlider to support both a minimum and maximum value. For licensing information, 
+ * visit Ernie Yu's <a href="www.github.com/ernieyu/Swing-range-slider">GitHub repository</a>.
+ * 
+ * <p>UI delegate for the RangeSlider component. RangeSliderUI paints two thumbs,
  * one for the lower value and one for the upper value.
  */
 class RangeSliderUI extends BasicSliderUI {
