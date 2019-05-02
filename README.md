@@ -1,6 +1,8 @@
 # Fractal Tree Generator
 Make some trees with ease.
 
+Source Code Documentation is available [here](https://jacob-ressler.github.io/fractal-tree/).
+
 ## About the Project
 This is a user-friendly application developed using Java's Swing library. It allows users to generate fractal trees based on eight different parameters. The application supports two modes of tree generation based on the same symmetric fractal tree algorithm, as well as the ability to color the trees and save them as images. 
 
