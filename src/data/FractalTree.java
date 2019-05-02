@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Data structure for holding and accessing all the {@link Branch}es of a fractal tree.
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class FractalTree {

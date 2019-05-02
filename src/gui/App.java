@@ -26,7 +26,7 @@ import data.ParamManager;
 
 /**
  * The main application window.
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class App extends JFrame {

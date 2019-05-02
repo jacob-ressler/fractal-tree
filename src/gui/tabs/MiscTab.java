@@ -30,7 +30,7 @@ import utilities.LimitDocumentFilter;
 /**
  * The "Misc" tab. Holds all miscellaneous customization UI.
  * <p>Subclass of {@link Tab}
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class MiscTab extends Tab {

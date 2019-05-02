@@ -20,7 +20,7 @@ import gui.CustomizationPanel;
  * An abstract class that represents a tab of {@link CustomizationPanel}.
  * Contains general methods and properties to be used by its concrete extensions.
  * <p>Subclass of {@link JScrollPane}
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public abstract class Tab extends JScrollPane {

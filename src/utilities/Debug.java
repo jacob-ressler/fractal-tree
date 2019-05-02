@@ -2,7 +2,7 @@ package utilities;
 
 /**
  * A static class with some useful debugging methods.
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class Debug {

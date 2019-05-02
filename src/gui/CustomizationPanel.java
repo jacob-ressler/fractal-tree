@@ -15,7 +15,7 @@ import gui.tabs.Tab;
 /**
  * A 3-tab panel that holds all customizable parameters.<br>
  * Subclass of {@link JTabbedPane}
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class CustomizationPanel extends JTabbedPane {

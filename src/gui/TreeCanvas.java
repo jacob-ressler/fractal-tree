@@ -19,6 +19,13 @@ import data.Branch;
 import data.FractalTree;
 import data.ParamManager;
 
+/**
+ * The canvas upon which trees will be drawn. Draws a new tree on mouse click.
+ * Also handles simple animation for the drawing.
+ * <p>Subclass of {@link JPanel}
+ * @author Jacob Ressler &amp; Anthony Lantz
+ *
+ */
 public class TreeCanvas extends JPanel {
 	
 	private FractalTree tree;
@@ -30,6 +37,11 @@ public class TreeCanvas extends JPanel {
 	private final int mpf = 1000 / fps; // milliseconds per frame
 	private long lastFrameTime; // time the last frame was drawn
 
+	/**
+	 * Create a paintable {@link JPanel} with the specified width and height
+	 * @param width the width
+	 * @param height the height
+	 */
 	public TreeCanvas(int width, int height) {
 		setName("Tree Canvas");
 		setPreferredSize(new Dimension(width, height));
@@ -50,6 +62,10 @@ public class TreeCanvas extends JPanel {
 	}
 
 
+	/**
+	 * Handles tree drawing. Each frame of animation, an additional generation of 
+	 * branches is drawn. This repeats each additional frame until all branches have been drawn.
+	 */
 	@Override 
 	protected void paintComponent(Graphics g) {
 		

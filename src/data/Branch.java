@@ -4,7 +4,7 @@ import utilities.Vector2;
 
 /**
  * A data structure holding information about a branch of the fractal tree.
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class Branch {

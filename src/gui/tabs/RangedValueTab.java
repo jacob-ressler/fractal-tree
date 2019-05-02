@@ -19,7 +19,7 @@ import gui.vendor.ernieyu.RangeSlider;
 /**
  * The "Ranged" tab. Holds all ranged-value customization UI.
  * <p>Subclass of {@link Tab}
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class RangedValueTab extends Tab {

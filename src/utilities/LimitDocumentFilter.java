@@ -8,7 +8,7 @@ import javax.swing.text.DocumentFilter;
  * A document filter for limiting the number of characters 
  * that can be entered in a text field. <br>
  * A subclass of {@link DocumentFilter}
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class LimitDocumentFilter extends DocumentFilter {

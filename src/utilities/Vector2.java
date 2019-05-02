@@ -2,7 +2,7 @@ package utilities;
 
 /**
  * A simple data structure for storing two-dimensional coordinates
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class Vector2 {
@@ -46,9 +46,9 @@ public class Vector2 {
 	
 	/**
 	 * Return the Euclidean distance between 2 Vector2s
-	 * @param start
-	 * @param end
-	 * @return
+	 * @param start the starting point
+	 * @param end the ending point
+	 * @return the Euclidean distance as an integer
 	 */
 	public static int distance(Vector2 start, Vector2 end) {
 		int xdif = (start.x - end.x) * (start.x - end.x);

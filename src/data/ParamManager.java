@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * A public static class for managing all parameter values used in
  * creating and drawing the fractal trees.
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class ParamManager {
@@ -56,7 +56,7 @@ public class ParamManager {
 	public static Integer[] rangeMax = new Integer[8];
 	
 	/**
-	 * The index of the current active tab (excluding Misc)
+	 * The index of the current active tab (excluding MiscTab)
 	 * <p><b>0</b> - if "Single" tab was active more recently than "Ranged" tab<br>
 	 * <b>1</b> - otherwise
 	 */
@@ -65,7 +65,7 @@ public class ParamManager {
 	/**
 	 * A list of colors to be used for coloring the drawn tree.
 	 * Currently fixed at 5 colors, but will ideally be variable in the future.
-	 * <p>The index used for a branch is determined by its generation modulo the size of this list.
+	 * <p>The index used for a branch is determined by its generation - 1, modulo the size of this list.
 	 */
 	public static ArrayList<Color> colors;
 	
@@ -76,11 +76,9 @@ public class ParamManager {
 		lastActiveTabIndex = 0;
 		
 		colors = new ArrayList<Color>();
-		colors.add(Color.black);
-		colors.add(Color.black);
-		colors.add(Color.black);
-		colors.add(Color.black);
-		colors.add(Color.black);
+		for (int i = 0; i < 5; i++) {
+			colors.add(Color.black);
+		}
 		
 		single[0] = 2;	// branching factor
 		single[1] = 5;	// generations

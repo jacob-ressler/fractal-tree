@@ -19,7 +19,7 @@ import data.ParamManager;
 /**
  * The "Single" tab. Holds all single-value customization UI.
  * <p>Subclass of {@link Tab}
- * @author Jacob Ressler & Anthony Lantz
+ * @author Jacob Ressler &amp; Anthony Lantz
  *
  */
 public class SingleValueTab extends Tab {
